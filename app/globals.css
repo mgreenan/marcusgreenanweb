@@ -1,0 +1,71 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  color-scheme: dark;
+  --bg: 5 7 11;
+  --bg-soft: 11 18 32;
+  --fg: 244 247 251;
+  --muted: 147 164 184;
+  --line: 42 56 78;
+  --accent: 77 181 255;
+  --signal: 255 122 24;
+}
+
+.light {
+  color-scheme: light;
+  --bg: 240 244 248;
+  --bg-soft: 255 255 255;
+  --fg: 10 16 28;
+  --muted: 77 91 110;
+  --line: 196 207 218;
+  --accent: 11 93 168;
+  --signal: 201 87 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-height: 100vh;
+  overflow-x: hidden;
+  background:
+    radial-gradient(circle at top, rgba(var(--accent), 0.12), transparent 24%),
+    radial-gradient(circle at 80% 20%, rgba(var(--signal), 0.1), transparent 18%),
+    rgb(var(--bg));
+  color: rgb(var(--fg));
+}
+
+body::before {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(rgba(var(--line), 0.18) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--line), 0.18) 1px, transparent 1px);
+  background-size: 90px 90px;
+  content: "";
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent 90%);
+}
+
+* {
+  border-color: rgb(var(--line));
+}
+
+.section-shell {
+  @apply rounded-[2rem] border border-white/10 bg-white/[0.03] shadow-glow backdrop-blur;
+}
+
+.eyebrow {
+  @apply mb-4 inline-flex items-center gap-2 rounded-full border px-3 py-1 text-xs uppercase tracking-[0.28em];
+}
+
+.title {
+  @apply font-semibold tracking-tight text-white dark:text-white;
+}
+
+.light .title {
+  color: rgb(var(--fg));
+}
