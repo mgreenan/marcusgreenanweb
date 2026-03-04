@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { IBM_Plex_Sans, Space_Grotesk } from "next/font/google";
+import { IntroLoader } from "@/components/IntroLoader";
 import "./globals.css";
 
 const bodyFont = IBM_Plex_Sans({
@@ -51,6 +52,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={`${bodyFont.variable} ${displayFont.variable} font-[family-name:var(--font-body)] antialiased`}>
+        <IntroLoader />
         {children}
       </body>
     </html>

@@ -183,8 +183,8 @@ export const portfolioData = {
   email: "mgreenan@ucsd.edu",
   phone: "(510) 640-9217",
   location: "La Jolla, California",
-  linkedin: "linkedin.com/in/marcus-greenan",
-  linkedinHref: "https://linkedin.com/in/marcus-greenan",
+  linkedin: "linkedin.com/in/marcus-greenan-944972243",
+  linkedinHref: "https://www.linkedin.com/in/marcus-greenan-944972243/",
   gpa: "3.57",
   introduction:
     "Mechanical engineering student at UC San Diego specializing in robotics and controls with hands-on experience in aerospace structures, multi-agent robotics systems, and precision manufacturing. Passionate about aerospace and autonomous systems with strong foundations in CAD, FEA, dynamics, control systems, and experimental validation.",

@@ -460,6 +460,8 @@ function ContactSection() {
             <a
               key={item.label}
               href={item.href}
+              target={item.href.startsWith("https://") ? "_blank" : undefined}
+              rel={item.href.startsWith("https://") ? "noopener noreferrer" : undefined}
               className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5 transition hover:border-[rgb(var(--accent))]"
             >
               <div className="flex items-center gap-3 text-[rgb(var(--accent))]">
