@@ -1,5 +1,5 @@
 import type { MetadataRoute } from "next";
-import { projectRecords } from "@/lib/portfolio-data";
+import { portfolioCopy } from "@/lib/portfolio-copy";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   return [
@@ -15,7 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: "monthly",
       priority: 0.9,
     },
-    ...projectRecords.map((project) => ({
+    ...portfolioCopy.projects.map((project) => ({
       url: `https://marcus-greenan-portfolio.vercel.app/projects/${project.slug}`,
       lastModified: new Date(),
       changeFrequency: "monthly" as const,

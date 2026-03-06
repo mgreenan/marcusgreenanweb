@@ -1,14 +1,14 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { ProjectDetail } from "@/components/project-detail";
-import { projectRecords, projectsBySlug } from "@/lib/portfolio-data";
+import { portfolioCopy, projectsBySlug } from "@/lib/portfolio-copy";
 
 type PageProps = {
   params: Promise<{ slug: string }>;
 };
 
 export async function generateStaticParams() {
-  return projectRecords.map((project) => ({ slug: project.slug }));
+  return portfolioCopy.projects.map((project) => ({ slug: project.slug }));
 }
 
 export async function generateMetadata({ params }: PageProps): Promise<Metadata> {

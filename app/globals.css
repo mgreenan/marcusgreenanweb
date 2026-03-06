@@ -38,6 +38,42 @@ body {
   color: rgb(var(--fg));
 }
 
+#intro-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 130;
+  pointer-events: none;
+}
+
+#intro-fallback {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  background:
+    radial-gradient(circle at center, rgba(166, 214, 255, 0.08), transparent 56%),
+    radial-gradient(circle at 10% 10%, rgba(148, 205, 255, 0.1), transparent 40%),
+    radial-gradient(circle at 90% 90%, rgba(0, 0, 0, 0.75), transparent 45%),
+    linear-gradient(180deg, #061426 0%, #040b17 100%);
+}
+
+html[data-intro="loading"] #intro-layer {
+  pointer-events: auto;
+}
+
+html[data-intro="loading"] #intro-fallback {
+  opacity: 1;
+}
+
+html[data-intro="loading"] #app-shell {
+  opacity: 0;
+  pointer-events: none;
+}
+
+html[data-intro="loading"],
+html[data-intro="loading"] body {
+  overflow: hidden;
+}
+
 body::before {
   position: fixed;
   inset: 0;
@@ -68,4 +104,21 @@ body::before {
 
 .light .title {
   color: rgb(var(--fg));
+}
+
+.blueprint-grid {
+  background-image:
+    linear-gradient(rgba(149, 208, 242, 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(149, 208, 242, 0.12) 1px, transparent 1px),
+    linear-gradient(rgba(149, 208, 242, 0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(149, 208, 242, 0.06) 1px, transparent 1px);
+  background-size: 26px 26px, 26px 26px, 130px 130px, 130px 130px;
+}
+
+.blueprint-noise {
+  background-image:
+    radial-gradient(rgba(255, 255, 255, 0.08) 0.5px, transparent 0.6px),
+    radial-gradient(rgba(140, 201, 240, 0.08) 0.5px, transparent 0.6px);
+  background-size: 3px 3px, 4px 4px;
+  background-position: 0 0, 1px 1px;
 }

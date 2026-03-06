@@ -4,7 +4,7 @@ import { AnimatePresence, motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, ArrowUpRight, Bot, Cpu, Rocket } from "lucide-react";
-import type { ProjectRecord } from "@/lib/portfolio-data";
+import type { ProjectCopy } from "@/lib/portfolio-copy";
 
 const projectIcons = {
   rocket: Rocket,
@@ -17,7 +17,7 @@ export function ProjectCard({
   expanded,
   onToggle,
 }: {
-  project: ProjectRecord;
+  project: ProjectCopy;
   expanded?: boolean;
   onToggle?: () => void;
 }) {

@@ -19,7 +19,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://marcus-greenan-portfolio.vercel.app"),
   title: "Marcus Greenan | Mechanical Engineering Portfolio",
   description:
-    "Mechanical engineering portfolio for Marcus Greenan, a UC San Diego student specializing in robotics and controls with experience in aerospace structures, multi-agent robotics, autonomous systems, and precision manufacturing.",
+    "Mechanical engineering portfolio focused on robotics and controls, with work in aerospace structures, multi-agent robotics, autonomous systems, and precision manufacturing.",
   keywords: [
     "mechanical engineering student portfolio",
     "robotics engineering student",
@@ -40,7 +40,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Marcus Greenan | Mechanical Engineering Portfolio",
     description:
-      "UC San Diego mechanical engineering student specializing in robotics and controls with aerospace and autonomy project experience.",
+      "Mechanical engineering portfolio with robotics, aerospace structures, autonomy, and precision manufacturing work.",
   },
 };
 
@@ -49,11 +49,26 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const preHydrationIntroScript = `
+    try {
+      var seen = sessionStorage.getItem("mg_intro_seen");
+      document.documentElement.dataset.intro = seen ? "done" : "loading";
+    } catch (e) {
+      document.documentElement.dataset.intro = "done";
+    }
+  `;
+
   return (
     <html lang="en" suppressHydrationWarning>
+      <head>
+        <script dangerouslySetInnerHTML={{ __html: preHydrationIntroScript }} />
+      </head>
       <body className={`${bodyFont.variable} ${displayFont.variable} font-[family-name:var(--font-body)] antialiased`}>
-        <IntroLoader />
-        {children}
+        <div id="intro-layer" aria-hidden="true">
+          <div id="intro-fallback" />
+          <IntroLoader />
+        </div>
+        <div id="app-shell">{children}</div>
       </body>
     </html>
   );

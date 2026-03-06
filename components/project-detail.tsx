@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowLeft, Download, ExternalLink } from "lucide-react";
-import type { ProjectRecord } from "@/lib/portfolio-data";
 import { resumeFile } from "@/lib/portfolio-data";
+import type { ProjectCopy } from "@/lib/portfolio-copy";
 
 function DetailBlock({ title, items }: { title: string; items: string[] }) {
   return (
@@ -17,7 +17,7 @@ function DetailBlock({ title, items }: { title: string; items: string[] }) {
   );
 }
 
-export function ProjectDetail({ project }: { project: ProjectRecord }) {
+export function ProjectDetail({ project }: { project: ProjectCopy }) {
   return (
     <div className="mx-auto min-h-screen max-w-7xl px-4 pb-12 pt-8 md:px-6">
       <div className="mb-6 flex flex-wrap items-center justify-between gap-4">

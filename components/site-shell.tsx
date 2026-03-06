@@ -2,11 +2,14 @@
 
 import { motion, useReducedMotion } from "framer-motion";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
 import {
   ArrowRight,
+  Calculator,
   Download,
+  Drill,
   ExternalLink,
   GraduationCap,
   Linkedin,
@@ -17,10 +20,12 @@ import {
   Phone,
   SunMedium,
   X,
+  Wrench,
 } from "lucide-react";
 import { ProjectCard } from "@/components/project-card";
 import { getCurrentTheme, toggleTheme } from "@/components/theme-provider";
-import { portfolioData, projectRecords, resumeFile, sections } from "@/lib/portfolio-data";
+import { portfolioCopy, type PortfolioCopy } from "@/lib/portfolio-copy";
+import { resumeFile, sections } from "@/lib/portfolio-data";
 
 const CadScene = dynamic(() => import("@/components/three/cad-scene"), {
   ssr: false,
@@ -140,7 +145,13 @@ function Navbar() {
   );
 }
 
-function Hero() {
+const skillIcons = {
+  design: Drill,
+  programming: Calculator,
+  tools: Wrench,
+};
+
+function Hero({ copy }: { copy: PortfolioCopy }) {
   return (
     <section id="home" className="section-shell relative overflow-hidden px-6 pb-10 pt-16 md:px-10 md:pb-16 md:pt-20">
       <div className="absolute inset-0 bg-grid bg-[size:48px_48px] opacity-20" />
@@ -148,15 +159,19 @@ function Hero() {
       <div className="relative grid gap-12 lg:grid-cols-[1.15fr_0.85fr] lg:items-center">
         <div>
           <div className="eyebrow border-[rgb(var(--accent)_/_0.35)] bg-[rgb(var(--accent)_/_0.08)] text-[rgb(var(--accent))]">
-            Mechanical Engineering Student • Robotics & Controls
+            {copy.hero.eyebrow}
           </div>
           <h1 className="font-[family-name:var(--font-display)] text-5xl leading-none text-[rgb(var(--fg))] md:text-7xl">
-            {portfolioData.name}
+            {copy.hero.title}
           </h1>
           <p className="mt-4 max-w-2xl font-[family-name:var(--font-display)] text-xl text-[rgb(var(--fg))] md:text-2xl">
-            {portfolioData.title}
+            {copy.hero.subheading}
           </p>
-          <p className="mt-6 max-w-2xl text-base leading-8 text-[rgb(var(--muted))] md:text-lg">{portfolioData.introduction}</p>
+          <div className="mt-6 space-y-3 max-w-2xl text-base leading-8 text-[rgb(var(--muted))] md:text-lg">
+            {copy.hero.intro.map((line) => (
+              <p key={line}>{line}</p>
+            ))}
+          </div>
           <div className="mt-8 flex flex-wrap gap-4">
             <Link
               href="/projects"
@@ -182,7 +197,7 @@ function Hero() {
             </a>
           </div>
           <div className="mt-10 grid gap-4 sm:grid-cols-2 xl:grid-cols-5">
-            {portfolioData.highlights.map((highlight) => (
+            {copy.hero.highlights.map((highlight) => (
               <div key={highlight.label} className="rounded-3xl border border-white/10 bg-white/[0.03] p-4">
                 <div className="text-lg font-semibold text-[rgb(var(--fg))] md:text-xl">{highlight.value}</div>
                 <div className="mt-2 text-sm leading-6 text-[rgb(var(--muted))]">{highlight.label}</div>
@@ -196,21 +211,21 @@ function Hero() {
             <CadScene />
             <div className="absolute inset-x-6 bottom-6 grid gap-4 rounded-3xl border border-white/10 bg-[rgb(var(--bg)_/_0.74)] p-5 backdrop-blur">
               <div className="flex items-center justify-between text-xs uppercase tracking-[0.28em] text-[rgb(var(--muted))]">
-                <span>Engineering Snapshot</span>
-                <span>Controls / Structures / Manufacturing</span>
+                <span>{copy.hero.snapshot.heading}</span>
+                <span>{copy.hero.snapshot.areas}</span>
               </div>
               <div className="grid gap-3 sm:grid-cols-3">
                 <div>
                   <div className="text-xs uppercase tracking-[0.22em] text-[rgb(var(--muted))]">Primary Track</div>
-                  <div className="mt-1 text-sm text-[rgb(var(--fg))]">Robotics and Controls</div>
+                  <div className="mt-1 text-sm text-[rgb(var(--fg))]">{copy.hero.snapshot.focus}</div>
                 </div>
                 <div>
                   <div className="text-xs uppercase tracking-[0.22em] text-[rgb(var(--muted))]">Applied Areas</div>
-                  <div className="mt-1 text-sm text-[rgb(var(--fg))]">Aerospace, autonomy, fabrication</div>
+                  <div className="mt-1 text-sm text-[rgb(var(--fg))]">{copy.hero.snapshot.areas}</div>
                 </div>
                 <div>
                   <div className="text-xs uppercase tracking-[0.22em] text-[rgb(var(--muted))]">Internship Target</div>
-                  <div className="mt-1 text-sm text-[rgb(var(--fg))]">Aerospace / robotics / autonomy</div>
+                  <div className="mt-1 text-sm text-[rgb(var(--fg))]">{copy.hero.snapshot.target}</div>
                 </div>
               </div>
             </div>
@@ -221,38 +236,72 @@ function Hero() {
   );
 }
 
-function AboutSection() {
+function AboutSection({ copy }: { copy: PortfolioCopy }) {
+  const headshotCard = (
+    <div className="rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-6">
+      <div className="flex flex-col items-center text-center">
+        <div className="relative h-40 w-40 overflow-hidden rounded-full border border-zinc-700 shadow-[0_14px_30px_rgba(0,0,0,0.32)] transition-transform duration-300 hover:scale-[1.03] md:h-48 md:w-48 lg:h-52 lg:w-52">
+          <Image
+            src={copy.about.headshot.src}
+            alt={copy.about.headshot.alt}
+            fill
+            priority={false}
+            className="object-cover"
+          />
+        </div>
+        <p className="mt-4 text-xs uppercase tracking-[0.18em] text-[rgb(var(--muted))]">{copy.about.headshot.caption}</p>
+        <div className="mt-4 flex flex-wrap items-center justify-center gap-2">
+          {copy.about.headshot.links.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              download={item.download}
+              target={item.href.startsWith("https://") ? "_blank" : undefined}
+              rel={item.href.startsWith("https://") ? "noopener noreferrer" : undefined}
+              className="inline-flex items-center rounded-full border border-white/10 px-3 py-1 text-xs text-[rgb(var(--fg))] transition hover:border-[rgb(var(--accent))]"
+            >
+              {item.label}
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  );
   return (
     <MotionSection
       id="about"
-      eyebrow="Profile"
-      title="Hands-on mechanical engineering work with direct exposure to structures, autonomy, and fabrication."
-      subtitle={portfolioData.about}
+      eyebrow={copy.about.eyebrow}
+      title={copy.about.title}
+      subtitle={copy.about.paragraphs[0]}
     >
-      <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
+      <div className="grid gap-10 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="space-y-5 text-sm leading-8 text-[rgb(var(--muted))] md:text-base">
-          <p>{portfolioData.aboutDetail}</p>
+          <div className="lg:hidden">{headshotCard}</div>
+          {copy.about.paragraphs.slice(1).map((paragraph) => (
+            <p key={paragraph}>{paragraph}</p>
+          ))}
           <div className="rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-6">
             <div className="flex items-center gap-3 text-[rgb(var(--accent))]">
               <GraduationCap className="h-5 w-5" />
               <span className="text-xs uppercase tracking-[0.28em]">Education</span>
             </div>
             <h3 className="mt-4 font-[family-name:var(--font-display)] text-2xl text-[rgb(var(--fg))]">
-              {portfolioData.education.school}
+              {copy.education.school}
             </h3>
             <div className="mt-3 space-y-2 text-sm leading-7 text-[rgb(var(--muted))]">
-              <p>{portfolioData.education.degree}</p>
-              <p>{portfolioData.education.specialization}</p>
-              <p>{portfolioData.education.honors}</p>
-              <p>{portfolioData.education.graduation}</p>
+              <p>{copy.education.degree}</p>
+              <p>{copy.education.specialization}</p>
+              <p>{copy.education.honors}</p>
+              <p>{copy.education.graduation}</p>
             </div>
           </div>
         </div>
         <div className="grid gap-4">
+          <div className="hidden lg:block">{headshotCard}</div>
           <div className="rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-6">
             <div className="text-xs uppercase tracking-[0.28em] text-[rgb(var(--accent))]">Relevant Coursework</div>
             <div className="mt-4 flex flex-wrap gap-2">
-              {portfolioData.education.coursework.map((course) => (
+              {copy.education.coursework.map((course) => (
                 <span key={course} className="rounded-full border border-white/10 px-3 py-1 text-sm text-[rgb(var(--fg))]">
                   {course}
                 </span>
@@ -260,7 +309,7 @@ function AboutSection() {
             </div>
           </div>
           <div className="grid gap-4 sm:grid-cols-2">
-            {portfolioData.focusAreas.map((area) => (
+            {copy.about.focusAreas.map((area) => (
               <div key={area.title} className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5">
                 <div className="text-xs uppercase tracking-[0.24em] text-[rgb(var(--accent))]">{area.kicker}</div>
                 <h3 className="mt-3 font-[family-name:var(--font-display)] text-xl text-[rgb(var(--fg))]">{area.title}</h3>
@@ -274,18 +323,18 @@ function AboutSection() {
   );
 }
 
-function ProjectsSection() {
-  const [expanded, setExpanded] = useState<string | null>(projectRecords[0]?.slug ?? null);
+function ProjectsSection({ copy }: { copy: PortfolioCopy }) {
+  const [expanded, setExpanded] = useState<string | null>(copy.projects[0]?.slug ?? null);
 
   return (
     <MotionSection
       id="projects"
-      eyebrow="Projects"
-      title="Engineering work presented with the level of depth recruiters and technical interviewers actually need."
-      subtitle="Each project includes overview, engineering challenges, design approach, validation, and results, with detailed writeups available on dedicated project pages."
+      eyebrow={copy.projectsSection.eyebrow}
+      title={copy.projectsSection.title}
+      subtitle={copy.projectsSection.subtitle}
     >
       <div className="mb-6 grid gap-4 sm:grid-cols-3">
-        {portfolioData.projectGallery.map((item) => (
+        {copy.projectsSection.galleryStats.map((item) => (
           <div key={item.label} className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5">
             <div className="text-2xl font-semibold text-[rgb(var(--fg))]">{item.value}</div>
             <div className="mt-2 text-sm text-[rgb(var(--muted))]">{item.label}</div>
@@ -293,7 +342,7 @@ function ProjectsSection() {
         ))}
       </div>
       <div className="grid gap-6">
-        {projectRecords.map((project) => (
+        {copy.projects.map((project) => (
           <ProjectCard
             key={project.slug}
             project={project}
@@ -315,15 +364,15 @@ function ProjectsSection() {
   );
 }
 
-function ExperienceSection() {
+function ExperienceSection({ copy }: { copy: PortfolioCopy }) {
   return (
     <MotionSection
       id="experience"
-      eyebrow="Experience"
-      title="Research, fabrication, and engineering execution across lab, shop, and team environments."
+      eyebrow={copy.experienceSection.eyebrow}
+      title={copy.experienceSection.title}
     >
       <div className="relative ml-3 border-l border-white/10 pl-6">
-        {portfolioData.experience.map((item) => (
+        {copy.experience.map((item) => (
           <div key={`${item.organization}-${item.period}`} className="relative pb-10 last:pb-0">
             <div className="absolute -left-[2.05rem] top-1 h-4 w-4 rounded-full border border-[rgb(var(--accent))] bg-[rgb(var(--bg))]" />
             <div className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-6">
@@ -334,7 +383,23 @@ function ExperienceSection() {
                 </div>
                 <div className="text-sm text-[rgb(var(--muted))]">{item.period}</div>
               </div>
-              <p className="mt-4 text-sm leading-8 text-[rgb(var(--muted))] md:text-base">{item.description}</p>
+              <div className="mt-4 grid gap-6 lg:grid-cols-[1.05fr_0.95fr] lg:items-start">
+                <p className="text-sm leading-8 text-[rgb(var(--muted))] md:text-base">{item.description}</p>
+                {item.organization === "UCSD Jacobs Machine Shop" ? (
+                  <div className="w-full">
+                    <Image
+                      src="/images/plasma-cutting.jpg"
+                      alt="Marcus Greenan plasma cutting sheet metal in the UCSD Jacobs Machine Shop"
+                      width={1200}
+                      height={900}
+                      className="rounded-xl shadow-md w-full max-w-[520px] h-auto object-cover"
+                    />
+                    <p className="mt-3 text-sm text-zinc-400">
+                      Plasma cutting sheet metal components at the UCSD Jacobs Machine Shop.
+                    </p>
+                  </div>
+                ) : null}
+              </div>
               <div className="mt-5 flex flex-wrap gap-2">
                 {item.skills.map((skill) => (
                   <span key={skill} className="rounded-full border border-white/10 px-3 py-1 text-sm text-[rgb(var(--fg))]">
@@ -350,48 +415,52 @@ function ExperienceSection() {
   );
 }
 
-function SkillsSection() {
+function SkillsSection({ copy }: { copy: PortfolioCopy }) {
   return (
     <MotionSection
       id="skills"
-      eyebrow="Technical Skills"
-      title="Design, controls, and manufacturing tools grouped the way engineering teams actually use them."
+      eyebrow={copy.skillsSection.eyebrow}
+      title={copy.skillsSection.title}
     >
       <div className="grid gap-5 md:grid-cols-3">
-        {portfolioData.skills.map((group) => (
-          <div key={group.title} className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-6">
-            <div className="flex items-center gap-3 text-[rgb(var(--accent))]">
-              <group.icon className="h-5 w-5" />
-              <h3 className="font-[family-name:var(--font-display)] text-xl text-[rgb(var(--fg))]">{group.title}</h3>
+        {copy.skills.map((group) => {
+          const Icon = skillIcons[group.iconKey];
+
+          return (
+            <div key={group.title} className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-6">
+              <div className="flex items-center gap-3 text-[rgb(var(--accent))]">
+                <Icon className="h-5 w-5" />
+                <h3 className="font-[family-name:var(--font-display)] text-xl text-[rgb(var(--fg))]">{group.title}</h3>
+              </div>
+              <ul className="mt-5 space-y-3 text-sm leading-7 text-[rgb(var(--muted))]">
+                {group.items.map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
             </div>
-            <ul className="mt-5 space-y-3 text-sm leading-7 text-[rgb(var(--muted))]">
-              {group.items.map((item) => (
-                <li key={item}>{item}</li>
-              ))}
-            </ul>
-          </div>
-        ))}
+          );
+        })}
       </div>
     </MotionSection>
   );
 }
 
-function LeadershipSection() {
+function LeadershipSection({ copy }: { copy: PortfolioCopy }) {
   return (
     <MotionSection
       id="leadership"
-      eyebrow="Leadership"
-      title="Budget ownership and operational discipline in a student organization environment."
+      eyebrow={copy.leadershipSection.eyebrow}
+      title={copy.leadershipSection.title}
     >
       <div className="grid gap-6 lg:grid-cols-[1.05fr_0.95fr]">
         <div className="rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-6 md:p-8">
-          <div className="text-xs uppercase tracking-[0.28em] text-[rgb(var(--accent))]">{portfolioData.leadership.organization}</div>
-          <h3 className="mt-4 font-[family-name:var(--font-display)] text-3xl text-[rgb(var(--fg))]">{portfolioData.leadership.role}</h3>
-          <div className="mt-3 text-sm text-[rgb(var(--muted))]">{portfolioData.leadership.period}</div>
-          <p className="mt-5 text-sm leading-8 text-[rgb(var(--muted))] md:text-base">{portfolioData.leadership.description}</p>
+          <div className="text-xs uppercase tracking-[0.28em] text-[rgb(var(--accent))]">{copy.leadership.organization}</div>
+          <h3 className="mt-4 font-[family-name:var(--font-display)] text-3xl text-[rgb(var(--fg))]">{copy.leadership.role}</h3>
+          <div className="mt-3 text-sm text-[rgb(var(--muted))]">{copy.leadership.period}</div>
+          <p className="mt-5 text-sm leading-8 text-[rgb(var(--muted))] md:text-base">{copy.leadership.description}</p>
         </div>
         <div className="grid gap-4">
-          {portfolioData.leadership.responsibilities.map((item) => (
+          {copy.leadership.responsibilities.map((item) => (
             <div key={item} className="rounded-[1.5rem] border border-white/10 bg-white/[0.03] p-5 text-sm leading-7 text-[rgb(var(--fg))]">
               {item}
             </div>
@@ -407,7 +476,7 @@ function ResumeSection() {
     <MotionSection
       id="resume"
       eyebrow="Resume"
-      title="Resume ready for recruiter review, download, and direct PDF viewing."
+      title="Thanks for taking the time to look through my work. If you’d like a closer look at my experience, you can view or download my resume below."
     >
       <div className="mb-6 flex flex-wrap gap-3">
         <a
@@ -435,24 +504,24 @@ function ResumeSection() {
   );
 }
 
-function ContactSection() {
+function ContactSection({ copy }: { copy: PortfolioCopy }) {
   const [submitted, setSubmitted] = useState(false);
   const contactItems = useMemo(
     () => [
-      { label: "Email", value: portfolioData.email, href: `mailto:${portfolioData.email}`, icon: Mail },
-      { label: "Phone", value: portfolioData.phone, href: `tel:${portfolioData.phone.replace(/[^0-9]/g, "")}`, icon: Phone },
-      { label: "LinkedIn", value: portfolioData.linkedin, href: portfolioData.linkedinHref, icon: Linkedin },
-      { label: "Location", value: portfolioData.location, href: "#contact", icon: MapPin },
+      { label: "Email", value: copy.contact.email, href: `mailto:${copy.contact.email}`, icon: Mail },
+      { label: "Phone", value: copy.contact.phone, href: `tel:${copy.contact.phone.replace(/[^0-9]/g, "")}`, icon: Phone },
+      { label: "LinkedIn", value: copy.contact.linkedin, href: copy.contact.linkedinHref, icon: Linkedin },
+      { label: "Location", value: copy.contact.location, href: "#contact", icon: MapPin },
     ],
-    []
+    [copy.contact.email, copy.contact.linkedin, copy.contact.linkedinHref, copy.contact.location, copy.contact.phone]
   );
 
   return (
     <MotionSection
       id="contact"
-      eyebrow="Contact"
-      title="Available for aerospace, robotics, and autonomy internships."
-      subtitle="The strongest fit is work that combines mechanical design, controls, testing, and physical system integration."
+      eyebrow={copy.contact.eyebrow}
+      title={copy.contact.title}
+      subtitle={copy.contact.subtitle}
     >
       <div className="grid gap-6 lg:grid-cols-[0.88fr_1.12fr]">
         <div className="grid gap-4">
@@ -481,7 +550,7 @@ function ContactSection() {
             const email = formData.get("email");
             const message = formData.get("message");
 
-            window.location.href = `mailto:${portfolioData.email}?subject=${encodeURIComponent(
+            window.location.href = `mailto:${copy.contact.email}?subject=${encodeURIComponent(
               `Portfolio inquiry from ${name}`
             )}&body=${encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`)}`;
             setSubmitted(true);
@@ -531,19 +600,19 @@ function Footer() {
   );
 }
 
-export function SiteShell() {
+export function SiteShell({ copy = portfolioCopy }: { copy?: PortfolioCopy }) {
   return (
     <div className="relative">
       <Navbar />
       <main className="mx-auto flex max-w-7xl flex-col gap-6 px-4 pb-12 pt-6 md:px-6">
-        <Hero />
-        <AboutSection />
-        <ProjectsSection />
-        <ExperienceSection />
-        <SkillsSection />
-        <LeadershipSection />
+        <Hero copy={copy} />
+        <AboutSection copy={copy} />
+        <ProjectsSection copy={copy} />
+        <ExperienceSection copy={copy} />
+        <SkillsSection copy={copy} />
+        <LeadershipSection copy={copy} />
         <ResumeSection />
-        <ContactSection />
+        <ContactSection copy={copy} />
       </main>
       <Footer />
     </div>
