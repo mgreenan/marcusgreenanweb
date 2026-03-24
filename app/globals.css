@@ -4,6 +4,8 @@
 
 :root {
   color-scheme: dark;
+  --font-body: "IBM Plex Sans", "Avenir Next", "Segoe UI", sans-serif;
+  --font-display: "Space Grotesk", "Avenir Next Condensed", "Trebuchet MS", sans-serif;
   --bg: 5 7 11;
   --bg-soft: 11 18 32;
   --fg: 244 247 251;
@@ -32,10 +34,14 @@ body {
   min-height: 100vh;
   overflow-x: hidden;
   background:
-    radial-gradient(circle at top, rgba(var(--accent), 0.12), transparent 24%),
-    radial-gradient(circle at 80% 20%, rgba(var(--signal), 0.1), transparent 18%),
+    radial-gradient(circle at top, rgba(var(--accent), 0.08), transparent 28%),
+    radial-gradient(circle at 82% 18%, rgba(var(--signal), 0.05), transparent 20%),
     rgb(var(--bg));
   color: rgb(var(--fg));
+}
+
+a {
+  color: inherit;
 }
 
 #intro-layer {
@@ -79,11 +85,11 @@ body::before {
   inset: 0;
   z-index: -1;
   background-image:
-    linear-gradient(rgba(var(--line), 0.18) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(var(--line), 0.18) 1px, transparent 1px);
-  background-size: 90px 90px;
+    linear-gradient(rgba(var(--line), 0.12) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(var(--line), 0.12) 1px, transparent 1px);
+  background-size: 110px 110px;
   content: "";
-  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.8), transparent 90%);
+  mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), transparent 92%);
 }
 
 * {
@@ -91,7 +97,8 @@ body::before {
 }
 
 .section-shell {
-  @apply rounded-[2rem] border border-white/10 bg-white/[0.03] shadow-glow backdrop-blur;
+  @apply rounded-[1.6rem] border border-white/10 bg-white/[0.02] backdrop-blur;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
 }
 
 .eyebrow {
@@ -106,19 +113,12 @@ body::before {
   color: rgb(var(--fg));
 }
 
-.blueprint-grid {
+.bg-grid {
   background-image:
-    linear-gradient(rgba(149, 208, 242, 0.12) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(149, 208, 242, 0.12) 1px, transparent 1px),
-    linear-gradient(rgba(149, 208, 242, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(149, 208, 242, 0.06) 1px, transparent 1px);
-  background-size: 26px 26px, 26px 26px, 130px 130px, 130px 130px;
+    linear-gradient(rgba(149, 208, 242, 0.16) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(149, 208, 242, 0.16) 1px, transparent 1px);
 }
 
-.blueprint-noise {
-  background-image:
-    radial-gradient(rgba(255, 255, 255, 0.08) 0.5px, transparent 0.6px),
-    radial-gradient(rgba(140, 201, 240, 0.08) 0.5px, transparent 0.6px);
-  background-size: 3px 3px, 4px 4px;
-  background-position: 0 0, 1px 1px;
+::selection {
+  background: rgba(var(--accent), 0.22);
 }

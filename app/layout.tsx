@@ -1,46 +1,56 @@
 import type { Metadata } from "next";
-import { IBM_Plex_Sans, Space_Grotesk } from "next/font/google";
 import { IntroLoader } from "@/components/IntroLoader";
 import "./globals.css";
 
-const bodyFont = IBM_Plex_Sans({
-  subsets: ["latin"],
-  variable: "--font-body",
-  weight: ["400", "500", "600", "700"],
-});
+const introScript = `
+(() => {
+  try {
+    const seen = sessionStorage.getItem('mg_intro_seen');
+    document.documentElement.dataset.intro = seen ? 'done' : 'loading';
+  } catch (error) {
+    document.documentElement.dataset.intro = 'done';
+  }
+})();
+`;
 
-const displayFont = Space_Grotesk({
-  subsets: ["latin"],
-  variable: "--font-display",
-  weight: ["500", "700"],
-});
+const themeScript = `
+(() => {
+  try {
+    const key = 'marcus-theme';
+    const stored = window.localStorage.getItem(key);
+    const preferredLight = window.matchMedia('(prefers-color-scheme: light)').matches;
+    const theme = stored ?? (preferredLight ? 'light' : 'dark');
+    document.documentElement.classList.toggle('light', theme === 'light');
+    document.documentElement.classList.toggle('dark', theme === 'dark');
+  } catch (error) {}
+})();
+`;
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://marcus-greenan-portfolio.vercel.app"),
-  title: "Marcus Greenan | Mechanical Engineering Portfolio",
+  title: "Marcus Greenan | Robotics and Hardware Portfolio",
   description:
-    "Mechanical engineering portfolio focused on robotics and controls, with work in aerospace structures, multi-agent robotics, autonomous systems, and precision manufacturing.",
+    "Portfolio for Marcus Greenan, a UC San Diego mechanical engineering student focused on robotics, controls, hardware integration, fabrication, and autonomous systems.",
   keywords: [
-    "mechanical engineering student portfolio",
-    "robotics engineering student",
-    "UCSD mechanical engineering portfolio",
-    "robotics research student",
     "Marcus Greenan",
-    "aerospace engineering portfolio",
+    "robotics portfolio",
+    "hardware engineering portfolio",
+    "UC San Diego mechanical engineering",
     "robotics and controls student",
-    "autonomous systems engineering student",
+    "ROS2 portfolio",
+    "mechanical engineering student robotics",
   ],
   openGraph: {
-    title: "Marcus Greenan | Mechanical Engineering Portfolio",
+    title: "Marcus Greenan | Robotics and Hardware Portfolio",
     description:
-      "Engineering portfolio highlighting aerospace structures, robotics systems, autonomous vehicles, and precision manufacturing.",
+      "Engineering portfolio highlighting robotics systems, controls, fabrication, and integrated hardware projects.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Marcus Greenan | Mechanical Engineering Portfolio",
+    title: "Marcus Greenan | Robotics and Hardware Portfolio",
     description:
-      "Mechanical engineering portfolio with robotics, aerospace structures, autonomy, and precision manufacturing work.",
+      "Portfolio focused on robotics, controls, fabrication, and integrated hardware systems.",
   },
 };
 
@@ -49,21 +59,13 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
-  const preHydrationIntroScript = `
-    try {
-      var seen = sessionStorage.getItem("mg_intro_seen");
-      document.documentElement.dataset.intro = seen ? "done" : "loading";
-    } catch (e) {
-      document.documentElement.dataset.intro = "done";
-    }
-  `;
-
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-        <script dangerouslySetInnerHTML={{ __html: preHydrationIntroScript }} />
+        <script dangerouslySetInnerHTML={{ __html: introScript }} />
+        <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
-      <body className={`${bodyFont.variable} ${displayFont.variable} font-[family-name:var(--font-body)] antialiased`}>
+      <body className="font-[family-name:var(--font-body)] antialiased">
         <div id="intro-layer" aria-hidden="true">
           <div id="intro-fallback" />
           <IntroLoader />

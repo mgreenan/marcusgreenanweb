@@ -1,9 +1,9 @@
 "use client";
 
-import { AnimatePresence, motion } from "framer-motion";
+import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
-import { ArrowRight, ArrowUpRight, Bot, Cpu, Rocket } from "lucide-react";
+import { ArrowRight, Bot, Cpu, Rocket } from "lucide-react";
 import type { ProjectCopy } from "@/lib/portfolio-copy";
 
 const projectIcons = {
@@ -12,122 +12,91 @@ const projectIcons = {
   autonomy: Cpu,
 };
 
-export function ProjectCard({
-  project,
-  expanded,
-  onToggle,
-}: {
-  project: ProjectCopy;
-  expanded?: boolean;
-  onToggle?: () => void;
-}) {
+export function ProjectCard({ project }: { project: ProjectCopy }) {
   const Icon = projectIcons[project.iconKey];
 
   return (
     <motion.article
       layout
-      className="group overflow-hidden rounded-[1.75rem] border border-white/10 bg-[rgb(var(--bg-soft)_/_0.7)] transition hover:border-[rgb(var(--accent)_/_0.5)]"
+      className="group overflow-hidden rounded-[1.4rem] border border-white/10 bg-[rgb(var(--bg-soft)_/_0.48)] transition hover:border-white/25"
     >
-      <div className="grid gap-0 lg:grid-cols-[0.92fr_1.08fr]">
+      <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
         <div className="relative min-h-[300px] overflow-hidden border-b border-white/10 lg:border-b-0 lg:border-r">
-          <div className={`absolute inset-0 bg-gradient-to-br ${project.hero}`} />
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.2),transparent_28%)]" />
           <Image
             src={project.image}
-            alt={`${project.title} technical diagram`}
+            alt={project.imageAlt}
             fill
-            className="object-cover opacity-60 mix-blend-screen transition duration-700 group-hover:scale-[1.03]"
+            sizes="(min-width: 1024px) 34vw, 100vw"
+            className={`object-cover transition duration-700 group-hover:scale-[1.02] ${project.imageClassName ?? ""}`}
           />
-          <div className="relative flex h-full flex-col justify-between p-6">
-            <div className="flex items-start justify-between gap-4">
-              <div>
-                <div className="text-xs uppercase tracking-[0.28em] text-white/70">{project.organization}</div>
-                <h3 className="mt-3 font-[family-name:var(--font-display)] text-3xl text-white">{project.title}</h3>
-                <p className="mt-3 max-w-xl text-sm leading-7 text-white/80">{project.subtitle}</p>
-              </div>
-              <Icon className="h-8 w-8 text-white/80" />
+          <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,10,16,0.1),rgba(7,10,16,0.82))]" />
+          <div className="relative flex h-full flex-col justify-end p-5 md:p-6">
+            <div className="mb-3 flex items-center justify-between gap-3 text-[11px] uppercase tracking-[0.22em] text-white/72">
+              <span>{project.organization}</span>
+              <Icon className="h-5 w-5 text-white/75" />
             </div>
-            <div className="grid gap-3 rounded-3xl border border-white/10 bg-black/25 p-4 backdrop-blur">
-              <div className="flex flex-wrap items-center gap-3 text-xs uppercase tracking-[0.22em] text-white/70">
-                <span>{project.role}</span>
-                <span>{project.period}</span>
-              </div>
-              <p className="text-sm leading-7 text-white/90">{project.overview}</p>
-            </div>
+            <h3 className="font-[family-name:var(--font-display)] text-2xl text-white md:text-[1.9rem]">{project.title}</h3>
+            <p className="mt-2 max-w-xl text-sm leading-7 text-white/82">{project.subtitle}</p>
           </div>
         </div>
-        <div className="p-6 md:p-8">
-          <div className="grid gap-4 sm:grid-cols-3">
+        <div className="p-5 md:p-7">
+          <div className="flex flex-wrap items-center gap-3 text-[11px] uppercase tracking-[0.2em] text-[rgb(var(--muted))]">
+            <span>{project.role}</span>
+            <span>{project.period}</span>
+          </div>
+          <p className="mt-4 text-sm leading-8 text-[rgb(var(--fg))] md:text-base">{project.overview}</p>
+          <div className="mt-5 grid gap-4 sm:grid-cols-3">
             {project.gallery.map((item) => (
-              <div key={item.label} className="rounded-3xl border border-white/10 bg-white/[0.03] p-4">
-                <div className="text-xs uppercase tracking-[0.22em] text-[rgb(var(--muted))]">{item.label}</div>
+              <div key={item.label} className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
+                <div className="text-[11px] uppercase tracking-[0.2em] text-[rgb(var(--muted))]">{item.label}</div>
                 <div className="mt-2 text-sm leading-7 text-[rgb(var(--fg))]">{item.value}</div>
               </div>
             ))}
           </div>
-          <div className="mt-6 flex flex-wrap gap-2">
-            {project.tools.map((tool) => (
+          <div className="mt-5 flex flex-wrap gap-2">
+            {project.tools.slice(0, 6).map((tool) => (
               <span key={tool} className="rounded-full border border-white/10 px-3 py-1 text-sm text-[rgb(var(--fg))]">
                 {tool}
               </span>
             ))}
           </div>
-          <div className="mt-6 flex flex-wrap gap-3">
+          <div className="mt-6 grid gap-4 md:grid-cols-2">
+            <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
+              <div className="text-[11px] uppercase tracking-[0.2em] text-[rgb(var(--accent))]">Engineering Focus</div>
+              <ul className="mt-3 space-y-2 text-sm leading-7 text-[rgb(var(--muted))]">
+                {project.designApproach.slice(0, 2).map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+            <div className="rounded-xl border border-white/10 bg-white/[0.02] p-4">
+              <div className="text-[11px] uppercase tracking-[0.2em] text-[rgb(var(--accent))]">Validation and Outcome</div>
+              <ul className="mt-3 space-y-2 text-sm leading-7 text-[rgb(var(--muted))]">
+                {project.validationTesting.slice(0, 1).concat(project.resultsImpact.slice(0, 1)).map((item) => (
+                  <li key={item}>{item}</li>
+                ))}
+              </ul>
+            </div>
+          </div>
+          <div className="mt-6 flex flex-wrap gap-2">
             <Link
               href={`/projects/${project.slug}`}
-              className="inline-flex items-center gap-2 rounded-full bg-[rgb(var(--fg))] px-4 py-2 text-sm font-semibold text-[rgb(var(--bg))]"
+              className="inline-flex items-center gap-2 rounded-full bg-[rgb(var(--fg))] px-4 py-2 text-sm font-semibold text-[rgb(var(--bg))] transition hover:opacity-90"
             >
               View Technical Detail
               <ArrowRight className="h-4 w-4" />
             </Link>
-            {onToggle ? (
-              <button
-                type="button"
-                onClick={onToggle}
-                className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm text-[rgb(var(--fg))] transition hover:border-[rgb(var(--accent))]"
+            {project.reportHref ? (
+              <a
+                href={project.reportHref}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 px-4 py-2 text-sm text-[rgb(var(--fg))] transition hover:border-white/30"
               >
-                {expanded ? "Hide Engineering Details" : "Expand Engineering Details"}
-              </button>
+                {project.reportLabel}
+              </a>
             ) : null}
           </div>
-          <AnimatePresence initial={false}>
-            {expanded ? (
-              <motion.div
-                initial={{ opacity: 0, height: 0 }}
-                animate={{ opacity: 1, height: "auto" }}
-                exit={{ opacity: 0, height: 0 }}
-                className="overflow-hidden"
-              >
-                <div className="mt-6 grid gap-4 border-t border-white/10 pt-6 md:grid-cols-2">
-                  <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-4">
-                    <div className="text-xs uppercase tracking-[0.22em] text-[rgb(var(--accent))]">Engineering Challenges</div>
-                    <ul className="mt-3 space-y-3 text-sm leading-7 text-[rgb(var(--muted))]">
-                      {project.engineeringChallenges.map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                  <div className="rounded-3xl border border-white/10 bg-white/[0.02] p-4">
-                    <div className="text-xs uppercase tracking-[0.22em] text-[rgb(var(--accent))]">Validation / Results</div>
-                    <ul className="mt-3 space-y-3 text-sm leading-7 text-[rgb(var(--muted))]">
-                      {project.validationTesting.slice(0, 2).concat(project.resultsImpact.slice(0, 1)).map((item) => (
-                        <li key={item}>{item}</li>
-                      ))}
-                    </ul>
-                  </div>
-                </div>
-                <div className="mt-4">
-                  <Link
-                    href={`/projects/${project.slug}`}
-                    className="inline-flex items-center gap-2 text-sm uppercase tracking-[0.22em] text-[rgb(var(--muted))] transition hover:text-[rgb(var(--fg))]"
-                  >
-                    Open full project page
-                    <ArrowUpRight className="h-4 w-4" />
-                  </Link>
-                </div>
-              </motion.div>
-            ) : null}
-          </AnimatePresence>
         </div>
       </div>
     </motion.article>
