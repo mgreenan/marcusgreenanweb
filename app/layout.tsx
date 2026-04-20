@@ -28,29 +28,30 @@ const themeScript = `
 
 export const metadata: Metadata = {
   metadataBase: new URL("https://marcus-greenan-portfolio.vercel.app"),
-  title: "Marcus Greenan | Robotics and Hardware Portfolio",
+  title: "Marcus Greenan | Mechanical Engineering Portfolio",
   description:
-    "Portfolio for Marcus Greenan, a UC San Diego mechanical engineering student focused on robotics, controls, hardware integration, fabrication, and autonomous systems.",
+    "Portfolio for Marcus Greenan, a UC San Diego mechanical engineering student focused on controls, hardware integration, fabrication, and real-world systems work across robotics, aerospace, biotech, and related fields.",
   keywords: [
     "Marcus Greenan",
-    "robotics portfolio",
+    "mechanical engineering portfolio",
     "hardware engineering portfolio",
     "UC San Diego mechanical engineering",
     "robotics and controls student",
+    "systems engineering portfolio",
+    "fabrication and controls portfolio",
     "ROS2 portfolio",
-    "mechanical engineering student robotics",
   ],
   openGraph: {
-    title: "Marcus Greenan | Robotics and Hardware Portfolio",
+    title: "Marcus Greenan | Mechanical Engineering Portfolio",
     description:
-      "Engineering portfolio highlighting robotics systems, controls, fabrication, and integrated hardware projects.",
+      "Engineering portfolio highlighting controls, fabrication, integrated hardware, and real-world systems work across robotics, aerospace, and biotech-adjacent projects.",
     type: "website",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Marcus Greenan | Robotics and Hardware Portfolio",
+    title: "Marcus Greenan | Mechanical Engineering Portfolio",
     description:
-      "Portfolio focused on robotics, controls, fabrication, and integrated hardware systems.",
+      "Portfolio focused on controls, fabrication, integrated hardware, and real-world mechanical systems work.",
   },
 };
 

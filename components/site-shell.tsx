@@ -255,7 +255,7 @@ function AboutSection({ copy }: { copy: PortfolioCopy }) {
           <PhotoWithCaption
             src="/images/machine-shop.jpg"
             alt="Marcus Greenan cutting sheet metal in the machine shop"
-            caption="Machine shop work is part of the portfolio, not a side note. I use fabrication experience to make packaging, fixturing, and tolerance decisions more realistic."
+            caption="Using a plasma cutter at the machine shop gave me a better feel for fabrication, fixturing, and what actually works on real parts."
             width={4032}
             height={3024}
             sizes="(min-width: 1024px) 34vw, 100vw"

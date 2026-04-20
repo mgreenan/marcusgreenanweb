@@ -135,32 +135,32 @@ export const portfolioCopy: PortfolioCopy = {
   hero: {
     eyebrow: "UC San Diego • Mechanical Engineering • Robotics and Controls",
     title: "Marcus Greenan",
-    subheading: "Mechanical engineering student building robotics hardware for robotics, autonomy, and hardware internships.",
+    subheading: "Mechanical engineering student building real systems across robotics, aerospace, and hardware-focused engineering roles.",
     intro: [
       "I work on systems that have to run on real hardware: CAD, brackets, wiring, sensing, ROS2 interfaces, and the tuning work that gets a robot from partial subsystems to repeatable behavior.",
-      "Most of my work is in robotics, controls, fabrication, and systems integration, especially when packaging, bandwidth, power, and field testing all matter at once.",
+      "Most of my work sits in controls, fabrication, and systems integration, especially when packaging, power, sensing, and field testing all have to work together on the same build.",
     ],
     highlights: [
-      { value: "Robotics / Hardware Internships", label: "Target roles" },
+      { value: "Mechanical Engineering Internships", label: "Target roles" },
       { value: "ROS2 + CAD + Fabrication", label: "Systems stack" },
       { value: "UC San Diego", label: "Mechanical Engineering" },
-      { value: "GPA 3.57", label: "Provost Honors" },
+      { value: "GPA 3.61", label: "Provost Honors" },
       { value: "Expected June 2027", label: "Graduation timeline" },
     ],
     snapshot: {
       heading: "Engineering Snapshot",
-      focus: "Robotics, controls, and hardware integration",
+      focus: "Systems, controls, and hardware integration",
       areas: "Mobile robotics, machine shop work, manipulator packaging, and test-driven iteration",
-      target: "Robotics / hardware internships across autonomy, aerospace, defense, and advanced manufacturing",
+      target: "Mechanical engineering roles across robotics, aerospace, biotech, defense, and advanced manufacturing",
     },
   },
   about: {
     eyebrow: "Profile",
     title: "I build systems and keep working on them until the mechanical layout, sensing, and control behavior make sense on real hardware.",
     paragraphs: [
-      "I am a mechanical engineering student at UC San Diego specializing in robotics and controls. I work best on projects where the mechanical, software, and electrical pieces all affect each other and someone has to make the whole thing behave.",
-      "That usually means moving between CAD, printed or machined parts, sensor placement, ROS2 interfaces, and repeated bench or field tests. I care about whether the package is serviceable, whether the sensing geometry matches the control logic, and whether the system still works once power and bandwidth become real constraints.",
-      "I am targeting robotics and hardware internships where hands-on integration matters: mobile robotics, autonomy, aerospace hardware, defense systems, and advanced manufacturing.",
+      "I am a mechanical engineering student at UC San Diego specializing in robotics and controls. I work best on projects where the mechanical, electrical, and software pieces all affect each other and someone has to make the whole system behave.",
+      "That usually means moving between CAD, machined or printed parts, sensor placement, control interfaces, and repeated bench or field tests. I care about whether the package is serviceable, whether the sensing geometry matches the control logic, and whether the system still works once power, bandwidth, and access constraints become real.",
+      "I am targeting mechanical engineering roles where hands-on integration matters: robotics systems, aerospace hardware, biotech equipment, defense systems, and advanced manufacturing.",
     ],
     headshot: {
       src: "/headshot.png",
@@ -435,7 +435,7 @@ export const portfolioCopy: PortfolioCopy = {
   ],
   experienceSection: {
     eyebrow: "Experience",
-    title: "My experience is strongest where drawings, hardware setup, and execution quality all matter.",
+    title: "My experience is strongest where drawings, hardware setup, integration, and execution quality all matter.",
   },
   experience: [
     {
@@ -502,8 +502,8 @@ export const portfolioCopy: PortfolioCopy = {
   },
   contact: {
     eyebrow: "Contact",
-    title: "If you are hiring for robotics or hardware work, I would like to talk.",
-    subtitle: "Email is the fastest way to reach me for internship opportunities, project discussions, or direct technical conversations.",
+    title: "Open to mechanical engineering roles focused on hardware, systems, and real-world implementation.",
+    subtitle: "Email is the fastest way to reach me for internship opportunities, project discussions, or direct technical conversations across robotics, aerospace, biotech, and related hardware work.",
     email: "mgreenan@ucsd.edu",
     phone: "(510) 640-9217",
     linkedin: "linkedin.com/in/marcus-greenan-944972243",
