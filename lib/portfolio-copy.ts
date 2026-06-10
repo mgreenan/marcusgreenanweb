@@ -205,10 +205,10 @@ export const portfolioCopy: PortfolioCopy = {
   projectsSection: {
     eyebrow: "Projects",
     title: "These are the projects that best show how I work: build the system, test it, and fix what breaks.",
-    subtitle: "MAE 148 is first because it is the clearest example of the robotics work I want to do: sensing, control, packaging, and hardware integration under real constraints.",
+    subtitle: "MAE 148 is first because it is the clearest example of real hardware integration, while the rest show how I handle controls, structures, data, and validation from different angles.",
     galleryStats: [
       { value: "1", label: "Flagship mobile robotics system" },
-      { value: "3", label: "Core engineering case studies" },
+      { value: "4", label: "Core engineering case studies" },
       { value: "2", label: "Projects with real hardware validation" },
     ],
   },
@@ -392,6 +392,116 @@ export const portfolioCopy: PortfolioCopy = {
           imageClassName: "-scale-x-100",
         },
       ],
+    },
+    {
+      slug: "robot-navigation-command-classification",
+      title: "Robot Navigation Command Classification",
+      subtitle: "Supervised machine learning study classifying wall-following robot commands from ultrasonic sensor readings",
+      organization: "Machine Learning Coursework",
+      role: "Student Research Project",
+      period: "2026",
+      hero: "from-slate-950 via-zinc-900 to-cyan-800",
+      image: "/images/ml-robot-poster-preview.png",
+      imageAlt: "Final poster for the robot navigation command classification machine learning project",
+      iconKey: "autonomy",
+      tools: ["Python", "scikit-learn", "SVM", "MLP neural network", "GridSearchCV", "Confusion matrices"],
+      gallery: [
+        { label: "Dataset", value: "UCI Wall-Following Robot Navigation Data Set" },
+        { label: "Best Model", value: "MLP neural network, 94.0% test accuracy" },
+        { label: "Evaluation", value: "Held-out test set, macro F1, confusion-matrix error analysis" },
+      ],
+      overview:
+        "I built an offline supervised learning pipeline that classified pre-labeled robot wall-following commands from ultrasonic sensor snapshots. The useful part was treating it like an engineering validation problem: build a baseline, compare model families, keep preprocessing inside the training folds, and explain where the classifier still confused commands.",
+      engineeringChallenges: [
+        "The target labels came from robot navigation commands, but the data were static ultrasonic snapshots, so I had to avoid claiming this was deployed robot control.",
+        "Class imbalance made accuracy alone too thin, especially with a majority-class baseline that could look acceptable while failing minority commands.",
+        "The sensor-ablation results were not as simple as more channels being better, so the interpretation had to stay tied to the data instead of forcing a neat story.",
+      ],
+      designApproach: [
+        "I built the pipeline around scikit-learn models, including a dummy majority baseline, logistic regression, linear SVM, RBF-kernel SVM, and an MLP neural network.",
+        "I used stratified 5-fold GridSearchCV with macro F1 so model selection paid attention to every command class, not just the largest labels.",
+        "Preprocessing used Pipeline objects so scaling was fit only inside training folds, which kept the validation setup cleaner.",
+      ],
+      validationTesting: [
+        "I evaluated the final models on a held-out stratified test set and compared accuracy, precision, recall, macro F1, and confusion matrices.",
+        "The MLP neural network reached 94.0% test accuracy and 0.934 macro F1, while the best class-report RBF SVM reached 92.9% test accuracy and 0.925 macro F1.",
+        "The largest confusion I found was Move-Forward predicted as Sharp-Right-Turn on 16 test samples, which gave me a concrete failure mode to discuss.",
+      ],
+      resultsImpact: [
+        "The project connected machine learning back to robotics in a grounded way: sensor readings, command labels, model comparison, and error analysis.",
+        "It also gave me practice presenting model results with the right boundaries, especially around what an offline classifier can and cannot prove about a real robot.",
+      ],
+      nextSteps: [
+        "Test temporal models that include recent sensor history instead of single snapshots.",
+        "Evaluate calibrated probabilities and only consider deployment after robot-in-the-loop validation.",
+      ],
+      detailSections: [
+        {
+          title: "Overview",
+          paragraphs: [
+            "This was a machine learning class project using the UCI Wall-Following Robot Navigation Data Set. I worked with ultrasonic sensor readings from a SCITOS G5 robot and trained classifiers to predict pre-labeled wall-following commands.",
+            "I kept the project framed as offline supervised classification. That matters because the model is learning from labeled snapshots, not controlling a robot in the loop.",
+          ],
+        },
+        {
+          title: "Modeling Setup",
+          paragraphs: [
+            "The main experiment used 5,456 samples with 24 ultrasonic sensor features and four command labels: Move-Forward, Slight-Right-Turn, Sharp-Right-Turn, and Slight-Left-Turn.",
+            "I compared a dummy majority baseline, logistic regression, linear SVM, RBF-kernel SVM, and an MLP neural network. Hyperparameters were selected with stratified 5-fold GridSearchCV using macro F1.",
+          ],
+          bullets: [
+            "Used scikit-learn Pipeline objects so scaling stayed inside training folds.",
+            "Reported held-out test metrics instead of only training or cross-validation scores.",
+            "Used macro F1 to keep minority command classes visible in the evaluation.",
+          ],
+        },
+        {
+          title: "Results",
+          paragraphs: [
+            "The MLP neural network was the strongest portfolio model, reaching 94.0% test accuracy and 0.934 macro F1 on the held-out test set. The best class-report model was the RBF SVM, with 92.9% test accuracy and 0.925 macro F1.",
+            "The model comparison was useful because the linear models lagged behind the nonlinear models, while the dummy baseline showed why accuracy alone was not enough for this dataset.",
+          ],
+        },
+        {
+          title: "Error Analysis",
+          paragraphs: [
+            "I used confusion matrices to look at the actual failure modes instead of stopping at one score. The largest off-diagonal error was Move-Forward predicted as Sharp-Right-Turn on 16 test samples.",
+            "That kind of mistake is important in a robotics context because adjacent command errors are not just abstract labels. They would need robot-in-the-loop testing before any classifier was trusted for control.",
+          ],
+        },
+        {
+          title: "Sensor Ablation",
+          paragraphs: [
+            "I also compared official reduced-sensor versions of the dataset. The reduced-sensor results did not support a simple claim that more raw sensor channels always improved classification.",
+            "That was a good reminder to keep model interpretation tied to the split, the dataset version, and the experimental setup instead of turning one result into a general rule.",
+          ],
+        },
+      ],
+      media: [
+        {
+          src: "/images/ml-robot-model-comparison.png",
+          alt: "Macro F1 comparison across robot navigation command classifiers",
+          caption: "Macro F1 comparison across baseline, linear, kernel, and neural network classifiers.",
+          width: 1800,
+          height: 990,
+        },
+        {
+          src: "/images/ml-robot-confusion-matrix.png",
+          alt: "Confusion matrix for the best robot navigation command classifier",
+          caption: "Confusion matrix used to inspect command-level failure modes on the held-out test set.",
+          width: 1260,
+          height: 1080,
+        },
+        {
+          src: "/images/ml-robot-sensor-ablation.png",
+          alt: "Sensor ablation comparison for robot navigation command classification",
+          caption: "Sensor ablation comparison across 24-sensor, 4-sensor, and 2-sensor dataset versions.",
+          width: 1800,
+          height: 990,
+        },
+      ],
+      reportHref: "/documents/robot-navigation-ml-report.pdf",
+      reportLabel: "View ML Report",
     },
     {
       slug: "rocket-propulsion-lab-daedalus",

@@ -7,7 +7,7 @@ import { portfolioCopy } from "@/lib/portfolio-copy";
 export const metadata: Metadata = {
   title: "Projects | Marcus Greenan",
   description:
-    "Detailed engineering projects covering my work in rocket structures, multi-agent robotics, and autonomous robotic systems.",
+    "Detailed engineering projects covering my work in hardware integration, robot systems, aerospace structures, and machine learning for sensor-based robot command classification.",
 };
 
 export default function ProjectsPage() {
@@ -25,7 +25,7 @@ export default function ProjectsPage() {
       <section className="section-shell px-6 py-10 md:px-10 md:py-14">
         <div className="eyebrow border-white/10 text-[rgb(var(--muted))]">Projects</div>
         <h1 className="title font-[family-name:var(--font-display)] text-4xl md:text-6xl">
-          Technical project pages for my aerospace, robotics, and autonomy work.
+          Technical project pages across hardware, robotics, aerospace, and applied machine learning.
         </h1>
         <p className="mt-4 max-w-3xl text-sm leading-7 text-[rgb(var(--muted))] md:text-base">
           I use this page to break down the engineering context, design choices, validation process, and what changed after testing.

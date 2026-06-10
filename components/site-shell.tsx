@@ -1,6 +1,5 @@
 "use client";
 
-import { motion, useReducedMotion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useMemo, useState } from "react";
@@ -37,15 +36,9 @@ function MotionSection({
   subtitle?: string;
   children: React.ReactNode;
 }) {
-  const reduceMotion = useReducedMotion();
-
   return (
-    <motion.section
+    <section
       id={id}
-      initial={reduceMotion ? false : { opacity: 0, y: 28 }}
-      whileInView={reduceMotion ? {} : { opacity: 1, y: 0 }}
-      viewport={{ once: true, amount: 0.18 }}
-      transition={{ duration: 0.55, ease: "easeOut" }}
       className="section-shell relative overflow-hidden px-6 py-12 md:px-10 md:py-16"
     >
       <div className="mb-10 max-w-4xl">
@@ -54,7 +47,7 @@ function MotionSection({
         {subtitle ? <p className="mt-4 max-w-3xl text-sm leading-7 text-[rgb(var(--muted))] md:text-base">{subtitle}</p> : null}
       </div>
       {children}
-    </motion.section>
+    </section>
   );
 }
 
