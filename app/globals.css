@@ -80,6 +80,10 @@ html[data-intro="loading"] #app-shell {
   pointer-events: none;
 }
 
+#app-shell {
+  transition: opacity 360ms ease;
+}
+
 html[data-intro="loading"],
 html[data-intro="loading"] body {
   overflow: hidden;
