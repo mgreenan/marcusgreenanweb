@@ -1,6 +1,3 @@
-"use client";
-
-import { motion } from "framer-motion";
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowRight, Bot, Cpu, Rocket } from "lucide-react";
@@ -16,8 +13,7 @@ export function ProjectCard({ project }: { project: ProjectCopy }) {
   const Icon = projectIcons[project.iconKey];
 
   return (
-    <motion.article
-      layout
+    <article
       className="group overflow-hidden rounded-[1.4rem] border border-white/10 bg-[rgb(var(--bg-soft)_/_0.48)] transition hover:border-white/25"
     >
       <div className="grid gap-0 lg:grid-cols-[0.82fr_1.18fr]">
@@ -27,7 +23,7 @@ export function ProjectCard({ project }: { project: ProjectCopy }) {
             alt={project.imageAlt}
             fill
             sizes="(min-width: 1024px) 34vw, 100vw"
-            className={`object-cover transition duration-700 group-hover:scale-[1.02] ${project.imageClassName ?? ""}`}
+            className={`object-cover ${project.imageClassName ?? ""}`}
           />
           <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(7,10,16,0.1),rgba(7,10,16,0.82))]" />
           <div className="relative flex h-full flex-col justify-end p-5 md:p-6">
@@ -99,6 +95,6 @@ export function ProjectCard({ project }: { project: ProjectCopy }) {
           </div>
         </div>
       </div>
-    </motion.article>
+    </article>
   );
 }

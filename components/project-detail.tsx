@@ -418,12 +418,12 @@ export function ProjectDetail({ project }: { project: ProjectCopy }) {
           </div>
           <div className="grid gap-4">
             {project.gallery.map((item) => (
-              <div key={item.label} className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5 backdrop-blur">
+              <div key={item.label} className="rounded-[1.5rem] border border-white/10 bg-black/30 p-5 shadow-[0_14px_36px_rgba(0,0,0,0.18)]">
                 <div className="text-xs uppercase tracking-[0.22em] text-white/70">{item.label}</div>
                 <div className="mt-2 text-sm leading-7 text-white">{item.value}</div>
               </div>
             ))}
-            <div className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5 backdrop-blur">
+            <div className="rounded-[1.5rem] border border-white/10 bg-black/30 p-5 shadow-[0_14px_36px_rgba(0,0,0,0.18)]">
               <div className="text-xs uppercase tracking-[0.22em] text-white/70">Tools Used</div>
               <div className="mt-3 flex flex-wrap gap-2">
                 {project.tools.map((tool) => (
@@ -434,7 +434,7 @@ export function ProjectDetail({ project }: { project: ProjectCopy }) {
               </div>
             </div>
             {project.sponsors ? (
-              <div className="rounded-[1.5rem] border border-white/10 bg-black/20 p-5 backdrop-blur">
+              <div className="rounded-[1.5rem] border border-white/10 bg-black/30 p-5 shadow-[0_14px_36px_rgba(0,0,0,0.18)]">
                 <div className="text-xs uppercase tracking-[0.22em] text-white/70">Research Sponsors</div>
                 <ul className="mt-3 space-y-2 text-sm text-white">
                   {project.sponsors.map((sponsor) => (

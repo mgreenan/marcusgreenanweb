@@ -93,7 +93,7 @@ function Navbar() {
 
   return (
     <header className="sticky top-0 z-50 mx-auto w-full max-w-7xl px-4 pt-4 md:px-6">
-      <div className="rounded-2xl border border-white/10 bg-[rgb(var(--bg-soft)_/_0.78)] px-4 py-3 backdrop-blur">
+      <div className="rounded-2xl border border-white/10 bg-[rgb(var(--bg-soft)_/_0.94)] px-4 py-3 shadow-[0_12px_32px_rgba(0,0,0,0.24)]">
         <div className="flex items-center justify-between gap-4">
           <a href="#home" className="font-[family-name:var(--font-display)] text-sm uppercase tracking-[0.28em] text-[rgb(var(--fg))]">
             Marcus Greenan

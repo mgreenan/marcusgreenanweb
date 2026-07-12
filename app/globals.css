@@ -28,6 +28,7 @@
 
 html {
   scroll-behavior: smooth;
+  text-rendering: optimizeLegibility;
 }
 
 body {
@@ -90,9 +91,10 @@ html[data-intro="loading"] body {
 }
 
 body::before {
-  position: fixed;
+  position: absolute;
   inset: 0;
   z-index: -1;
+  height: 180vh;
   background-image:
     linear-gradient(rgba(var(--line), 0.12) 1px, transparent 1px),
     linear-gradient(90deg, rgba(var(--line), 0.12) 1px, transparent 1px);
@@ -106,8 +108,30 @@ body::before {
 }
 
 .section-shell {
-  @apply rounded-[1.6rem] border border-white/10 bg-white/[0.02] backdrop-blur;
+  @apply rounded-[1.6rem] border border-white/10 bg-white/[0.025];
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.18);
+  content-visibility: auto;
+  contain-intrinsic-size: 900px;
+}
+
+#home {
+  content-visibility: visible;
+  contain-intrinsic-size: auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.001ms !important;
+  }
 }
 
 .eyebrow {
