@@ -22,8 +22,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   }
 
   return {
-    title: `${project.title} | Marcus Greenan`,
-    description: project.overview,
+    title: project.metaTitle ?? `${project.title} | Marcus Greenan`,
+    description: project.metaDescription ?? project.overview,
   };
 }
 

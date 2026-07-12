@@ -19,6 +19,57 @@ export type ProjectMedia = {
   imageClassName?: string;
 };
 
+export type ProjectCaseStudy = {
+  anchorLabel: string;
+  snapshot: { label: string; value: string; note?: string }[];
+  overviewFigure?: ProjectMedia;
+  responsibilities?: { title: string; body: string }[];
+  noseCone?: {
+    title: string;
+    paragraphs: string[];
+    specs: { label: string; value: string }[];
+    takeaway: string;
+  };
+  architecture?: {
+    title: string;
+    intro?: string;
+    systems: { title: string; items: string[] }[];
+    note?: string;
+  };
+  avionics?: {
+    title: string;
+    paragraphs: string[];
+    figure: ProjectMedia;
+  };
+  tradeoffs?: { title: string; body: string }[];
+  openRocket?: {
+    title: string;
+    paragraphs: string[];
+    highlights: { label: string; value: string }[];
+    figures: ProjectMedia[];
+  };
+  flow?: {
+    title: string;
+    paragraphs: string[];
+    figure: ProjectMedia;
+  };
+  structural?: {
+    title: string;
+    paragraphs: string[];
+    loadCase: string;
+    figures: ProjectMedia[];
+  };
+  process?: { title: string; body: string }[];
+  lessons?: {
+    title: string;
+    paragraphs: string[];
+  };
+  finalSummary?: {
+    heading: string;
+    text: string;
+  };
+};
+
 export type ProjectCopy = {
   slug: string;
   title: string;
@@ -42,9 +93,12 @@ export type ProjectCopy = {
   nextSteps: string[];
   detailSections?: ProjectDetailSection[];
   media?: ProjectMedia[];
+  caseStudy?: ProjectCaseStudy;
   reportHref?: string;
   reportLabel?: string;
   featured?: boolean;
+  metaTitle?: string;
+  metaDescription?: string;
 };
 
 export type ExperienceCopy = {
@@ -505,42 +559,304 @@ export const portfolioCopy: PortfolioCopy = {
     },
     {
       slug: "rocket-propulsion-lab-daedalus",
-      title: "Rocket Propulsion Lab - Daedalus",
-      subtitle: "Structures work for a student rocket targeting roughly 4,000 ft apogee",
+      title: "Rocket Propulsion Lab – Project Daedalus",
+      subtitle: "Structural design and simulation for a student rocket targeting a simulated 4,000-foot apogee",
       organization: "UCSD Rocket Propulsion Lab",
       role: "Structures Lead",
-      period: "2024 - 2025",
+      period: "10/2024 - 6/2025",
       hero: "from-slate-950 via-slate-800 to-orange-700",
       image: "/rocket-diagram.svg",
-      imageAlt: "Rocket technical diagram representing the Daedalus project",
+      imageAlt: "Rocket technical diagram representing the Project Daedalus case study",
       iconKey: "rocket",
-      tools: ["SolidWorks", "OpenRocket", "Tolerance analysis", "Basic FEA checks", "Instrumentation"],
+      tools: ["SolidWorks", "OpenRocket", "FEA", "3D Printing", "Tolerance Analysis", "Aerospace Structures"],
       gallery: [
-        { label: "Vehicle Goal", value: "~4,000 ft apogee" },
-        { label: "Primary Scope", value: "Structures and integration" },
-        { label: "Engineering Lens", value: "Mass, stiffness, and stability tradeoffs" },
+        { label: "Simulated Apogee", value: "Approx. 4,086 ft" },
+        { label: "Simulated Stability", value: "1.23 calibers" },
+        { label: "Modeled Mass", value: "0.471 kg" },
       ],
       overview:
-        "I worked on structures for Daedalus, a student rocket project where stiffness, mass, assembly tolerance, and aerodynamic stability all had to be balanced together. I built the structural CAD, checked tolerances, and used quick FEA passes before fabrication and validation.",
+        "I led structural design work for Project Daedalus, including CAD development, component interfaces, manufacturing constraints, tolerance checks, and early simulation. I also worked with the avionics and propulsion teams to keep the rocket mechanically integrated as the design changed.",
       engineeringChallenges: [
-        "Every structural change shifted mass distribution and therefore changed stability and integration behavior elsewhere in the vehicle.",
-        "Tolerance choices needed to support repeatable assembly without adding unnecessary mass or overcomplicating fabrication.",
+        "The rocket had to approach a simulated 4,000-foot apogee while staying stable, manufacturable, and recoverable.",
+        "Structural changes affected total mass, center of gravity, center of pressure, drag, assembly behavior, and recovery packaging.",
+        "The nose-cone interface needed enough retention for handling and ascent without preventing deployment near modeled apogee.",
       ],
       designApproach: [
-        "I used CAD and tolerance analysis early to expose assembly problems before fabrication rather than finding them during integration.",
-        "Quick FEA passes and OpenRocket trade studies helped narrow concepts before the team committed time and material.",
+        "I developed structural CAD around the body tube, fin assembly, nose cone, avionics bay, motor region, and recovery hardware interfaces.",
+        "I used OpenRocket as a design guide to compare geometry, component placement, mass distribution, and predicted stability before fabrication decisions.",
+        "I checked manufacturing limits, clearances, friction-fit behavior, and printed-part geometry before the team committed material and time.",
       ],
       validationTesting: [
-        "I supported propulsion and recovery validation with instrumentation and data collection tied back to design assumptions.",
-        "Trade studies on stability margin, drag, and mass distribution informed structural decisions before fabrication.",
+        "I used preliminary FEA as an early design check, not as formal structural qualification.",
+        "OpenRocket predictions guided the design, but I did not treat simulated apogee, velocity, or acceleration as measured flight data.",
+        "I supported fabrication planning, assembly decisions, and team testing activities tied to structural and subsystem interfaces.",
       ],
       resultsImpact: [
-        "The work improved how I make structural decisions in the context of the whole system instead of optimizing one part in isolation.",
-        "It also built stronger habits around pre-fabrication checks, assembly realism, and design-for-test thinking.",
+        "The project changed how I make structural decisions because every part had to be checked against assembly, mass distribution, recovery motion, and neighboring subsystems.",
+        "My strongest contribution was keeping structural work connected to CAD, simulation, manufacturing limits, and subsystem communication.",
       ],
       nextSteps: [
-        "Tighten correlation between structural assumptions and pre-test evidence earlier in the design cycle.",
+        "Tighten the connection between simulated assumptions, physical fit checks, and documented test evidence earlier in the design cycle.",
       ],
+      metaTitle: "Rocket Propulsion Lab – Project Daedalus | Marcus Greenan",
+      metaDescription:
+        "Structural design, OpenRocket simulation, preliminary FEA, manufacturing, and subsystem-integration work for a UC San Diego student rocket targeting a simulated 4,000-foot apogee.",
+      caseStudy: {
+        anchorLabel: "Explore the Engineering",
+        snapshot: [
+          { label: "Vehicle length", value: "25 in" },
+          { label: "Max diameter", value: "1.5 in" },
+          { label: "Modeled mass", value: "1.038 lb / 0.471 kg" },
+          { label: "Simulated stability", value: "1.23 calibers" },
+          { label: "Simulated apogee", value: "Approx. 4,086 ft / 1,245 m" },
+          { label: "Simulated peak velocity", value: "791 ft/s / 241 m/s" },
+          { label: "Simulated peak acceleration", value: "675 ft/s² / 205.74 m/s²" },
+          { label: "Selected motor", value: "AeroTech G80T" },
+          { label: "Simulated time to apogee", value: "Approx. 14 s" },
+        ],
+        overviewFigure: {
+          src: "/projects/rpl-daedalus/openrocket-vehicle-model.png",
+          alt: "OpenRocket model of the Project Daedalus student rocket showing vehicle geometry and component placement",
+          caption: "OpenRocket model used to evaluate vehicle geometry, component placement, mass distribution, and predicted stability.",
+          width: 1408,
+          height: 334,
+          imageClassName: "object-contain bg-white",
+        },
+        responsibilities: [
+          {
+            title: "Structural CAD",
+            body: "I developed structural CAD for the rocket and reviewed how the nose cone, body tube, fin assembly, avionics bay, motor region, and recovery hardware fit together.",
+          },
+          {
+            title: "Nose-Cone Design",
+            body: "I worked on the nose-cone geometry and its interface with the body tube. The part needed to support the aerodynamic profile, fit the available 3D printer, maintain adequate stiffness, and separate during parachute deployment.",
+          },
+          {
+            title: "Manufacturing and Tolerances",
+            body: "I considered printer limits, material selection, wall geometry, infill, component clearances, and friction-fit behavior before fabrication. Small dimensional errors could prevent assembly or interfere with recovery deployment.",
+          },
+          {
+            title: "Subsystem Integration",
+            body: "I worked with teammates responsible for avionics and propulsion to understand packaging, mounting, access, and wiring requirements. That communication helped keep mechanical changes from creating problems for another subsystem.",
+          },
+        ],
+        noseCone: {
+          title: "Designing the Nose Cone as More Than an Aerodynamic Surface",
+          paragraphs: [
+            "The nose cone had several jobs at once. It defined the leading aerodynamic geometry, added structural mass near the front of the vehicle, connected to the body tube, and separated as part of the recovery sequence.",
+            "The Von Kármán profile gave the team a practical aerodynamic shape for the available length and diameter. The design also had to fit within the available printer volume and avoid geometry that created unnecessary printing difficulty.",
+            "Using a high infill increased rigidity, but it also increased forward mass. That mass affected the vehicle's center of gravity, which meant the nose-cone design had to be evaluated in the context of the complete OpenRocket model.",
+            "The shoulder used a friction-fit connection with the body tube. The fit needed to remain secure during handling and ascent while still allowing the recovery system to separate the nose cone near apogee.",
+          ],
+          specs: [
+            { label: "Length", value: "6 in" },
+            { label: "Maximum diameter", value: "1.5 in" },
+            { label: "Fineness ratio", value: "4.0" },
+            { label: "Profile", value: "Haack Series, Von Kármán, C = 0" },
+            { label: "Material", value: "PLA" },
+            { label: "Infill", value: "100%" },
+            { label: "Manufacturing", value: "In-house 3D printing" },
+            { label: "Shoulder outer diameter", value: "1.4 in" },
+            { label: "Shoulder inner diameter", value: "1.3 in" },
+            { label: "Shoulder height", value: "0.5 in" },
+          ],
+          takeaway:
+            "The nose cone was simultaneously an aerodynamic component, a printed structural part, a mass-distribution input, and a recovery-system interface.",
+        },
+        architecture: {
+          title: "Vehicle Architecture",
+          intro:
+            "The complete vehicle mattered because each subsystem created structural interfaces. I did not own every subsystem, but their packaging and load paths affected the mechanical design.",
+          systems: [
+            {
+              title: "Body Structure",
+              items: [
+                "25-inch total vehicle length",
+                "1.5-inch maximum diameter",
+                "Approximately 19-inch body tube",
+                "Approximately 1.4-inch inner diameter",
+                "Engine block separating the motor and avionics regions",
+              ],
+            },
+            {
+              title: "Fin Assembly",
+              items: [
+                "Four fins",
+                "Approximately 1.7-inch root chord",
+                "Approximately 1.02-inch fin height",
+                "Airfoil-style cross section",
+                "Integrated with a printed fin-can or sleeve structure",
+              ],
+            },
+            {
+              title: "Recovery",
+              items: [
+                "24-inch ripstop nylon parachute",
+                "Nose-cone deployment",
+                "Approximately 10.5 ft/s predicted ground-contact velocity",
+                "Deployment near simulated apogee",
+              ],
+            },
+            {
+              title: "Propulsion",
+              items: [
+                "AeroTech G80T motor",
+                "133 N·s total impulse",
+                "Approximately 78 N average thrust",
+                "Approximately 1.71-second burn duration",
+              ],
+            },
+            {
+              title: "Avionics",
+              items: [
+                "Arduino Pro Mini",
+                "BMP280 pressure sensor",
+                "MPU6050 inertial sensor",
+                "SD-card data logging",
+                "7.4 V LiPo battery",
+              ],
+            },
+          ],
+          note:
+            "The propulsion, recovery, and avionics systems are included to show the interfaces and constraints that affected my structural work. They were collaborative team systems rather than solely my individual designs.",
+        },
+        avionics: {
+          title: "Designing Around the Avionics Package",
+          paragraphs: [
+            "The avionics package affected the mechanical design even though my primary role was structural. The Arduino, pressure sensor, inertial sensor, SD-card module, battery, wiring, and mounting hardware all had to fit within the available internal diameter.",
+            "Mechanical design decisions had to preserve enough room for wiring, sensor placement, assembly, and removal. I regularly communicated with the electrical team to understand what space they needed and where mechanical access mattered.",
+          ],
+          figure: {
+            src: "/projects/rpl-daedalus/avionics-layout.png",
+            alt: "Arduino-based avionics layout with pressure, inertial, and data-logging components",
+            caption: "Early avionics circuit and sensor architecture used to define packaging and mechanical-interface requirements.",
+            width: 1288,
+            height: 898,
+            imageClassName: "object-contain bg-zinc-950",
+          },
+        },
+        tradeoffs: [
+          {
+            title: "Aerodynamics versus Manufacturability",
+            body: "The external geometry influenced drag, but the part still had to fit the available printer, print reliably, and connect to the body tube without excessive post-processing.",
+          },
+          {
+            title: "Stiffness versus Mass",
+            body: "Increasing material, infill, or thickness improved rigidity but also changed total vehicle mass and shifted the center of gravity.",
+          },
+          {
+            title: "Retention versus Deployment",
+            body: "The nose-cone interface needed enough friction to remain assembled before deployment without preventing the recovery system from separating it.",
+          },
+          {
+            title: "Packaging versus Stability",
+            body: "Moving the motor, avionics, battery, recovery hardware, or printed components changed the mass distribution. Packaging choices therefore affected both mechanical integration and aerodynamic stability.",
+          },
+        ],
+        openRocket: {
+          title: "Predicting Vehicle Performance in OpenRocket",
+          paragraphs: [
+            "OpenRocket allowed the team to see how structural changes affected the complete flight model. A change that improved one component could also shift the center of gravity, change stability, add drag, or reduce predicted altitude.",
+            "I used these results as design guidance rather than treating the simulation as a substitute for physical validation. The model helped identify weak concepts and compare alternatives before fabrication.",
+          ],
+          highlights: [
+            { label: "Simulated apogee", value: "Approx. 4,086 ft" },
+            { label: "Simulated stability", value: "1.23 calibers" },
+            { label: "Simulated time to apogee", value: "Approx. 14.1 s" },
+          ],
+          figures: [
+            {
+              src: "/projects/rpl-daedalus/openrocket-vehicle-model.png",
+              alt: "OpenRocket model of the Project Daedalus student rocket showing vehicle geometry and component placement",
+              caption: "OpenRocket vehicle model showing component placement and the modeled center of gravity and center of pressure.",
+              width: 1408,
+              height: 334,
+              imageClassName: "object-contain bg-white",
+            },
+            {
+              src: "/projects/rpl-daedalus/openrocket-flight-simulation.png",
+              alt: "OpenRocket graph of simulated altitude, vertical velocity, and vertical acceleration over time",
+              caption: "OpenRocket prediction of altitude, vertical velocity, and vertical acceleration over the modeled flight.",
+              width: 1276,
+              height: 794,
+              imageClassName: "object-contain bg-white",
+            },
+          ],
+        },
+        flow: {
+          title: "Qualitative Flow and Pressure Review",
+          paragraphs: [
+            "The flow simulation gave the team an early qualitative view of the pressure field and flow paths around the rocket geometry. It helped us identify areas of the vehicle worth examining and communicate how the external geometry interacted with the surrounding flow.",
+            "I treat this as an exploratory design study, not validated computational fluid dynamics. The project records I have do not document enough about the mesh, boundary conditions, turbulence model, convergence, or experimental correlation to claim more than that.",
+          ],
+          figure: {
+            src: "/projects/rpl-daedalus/flow-simulation.png",
+            alt: "Qualitative flow and pressure visualization surrounding the rocket geometry",
+            caption:
+              "Qualitative flow and pressure visualization around the rocket geometry. Cooler colors indicate lower displayed pressure and warmer colors indicate higher displayed pressure.",
+            width: 258,
+            height: 886,
+            imageClassName: "object-contain bg-white",
+          },
+        },
+        structural: {
+          title: "Preliminary Structural Simulation Review",
+          paragraphs: [
+            "The structural simulations were used as preliminary design checks rather than formal qualification. They provided a way to inspect where deformation, strain, and stress concentrated under the modeled load before the team committed to fabrication.",
+            "The documented loading case applied approximately 39.25 lb to the modeled structure. The visual results helped the team review the body and fin region for concerning behavior and identify geometry that deserved closer attention.",
+          ],
+          loadCase: "Documented modeled load: approximately 39.25 lb",
+          figures: [
+            {
+              src: "/projects/rpl-daedalus/pressure-stress.png",
+              alt: "Von Mises stress plot of the rocket body and fin assembly",
+              caption: "Von Mises stress visualization used as an early structural design check.",
+              width: 502,
+              height: 680,
+              imageClassName: "object-contain bg-white",
+            },
+          ],
+        },
+        process: [
+          {
+            title: "Requirements",
+            body: "Defined the approximate altitude target, vehicle envelope, stability needs, recovery approach, motor constraints, and manufacturing limits.",
+          },
+          {
+            title: "Concept Development",
+            body: "Created and reviewed early CAD for the nose cone, body structure, fins, avionics bay, and subsystem interfaces.",
+          },
+          {
+            title: "Simulation",
+            body: "Used OpenRocket and preliminary structural studies to review stability, predicted performance, and structural behavior.",
+          },
+          {
+            title: "Integration",
+            body: "Coordinated with propulsion and avionics teammates as their packaging and hardware requirements developed.",
+          },
+          {
+            title: "Refinement",
+            body: "Adjusted geometry, fit, material use, and component placement based on integration and manufacturing constraints.",
+          },
+          {
+            title: "Fabrication and Testing Support",
+            body: "Supported fabrication planning, physical assembly, and team testing activities.",
+          },
+        ],
+        lessons: {
+          title: "What I Learned",
+          paragraphs: [
+            "This project changed how I think about mechanical design. A part can look correct in isolation and still cause problems when tolerances, manufacturing limits, wiring, mass distribution, recovery motion, and neighboring subsystems become real.",
+            "I learned to check interfaces earlier, use simulation to eliminate weak concepts before fabrication, and evaluate structural decisions in the context of the complete vehicle.",
+            "Working with teammates focused on avionics and propulsion also improved how I communicate across disciplines. I needed enough understanding of their systems to design around packaging, access, wiring, mounting, and deployment requirements.",
+          ],
+        },
+        finalSummary: {
+          heading: "Core Engineering Takeaway",
+          text:
+            "Project Daedalus taught me to connect CAD, simulation, manufacturing, and subsystem communication. My strongest contribution was not a single isolated component. It was making structural decisions while accounting for how the complete rocket needed to assemble, remain stable, package its hardware, and support recovery.",
+        },
+      },
     },
   ],
   experienceSection: {
