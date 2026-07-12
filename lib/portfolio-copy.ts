@@ -601,6 +601,8 @@ export const portfolioCopy: PortfolioCopy = {
       metaTitle: "Rocket Propulsion Lab – Project Daedalus | Marcus Greenan",
       metaDescription:
         "Structural design, OpenRocket simulation, preliminary FEA, manufacturing, and subsystem-integration work for a UC San Diego student rocket targeting a simulated 4,000-foot apogee.",
+      reportHref: "/documents/rpl-daedalus-technical-report.pdf",
+      reportLabel: "View Technical Report",
       caseStudy: {
         anchorLabel: "Explore the Engineering",
         snapshot: [

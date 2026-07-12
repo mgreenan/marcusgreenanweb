@@ -292,6 +292,17 @@ function RocketCaseStudy({ caseStudy, project }: { caseStudy: ProjectCaseStudy; 
             <Link href="/projects" className="inline-flex items-center gap-2 rounded-full bg-[rgb(var(--fg))] px-5 py-3 text-sm font-semibold text-[rgb(var(--bg))]">
               Back to All Projects
             </Link>
+            {project.reportHref ? (
+              <a
+                href={project.reportHref}
+                target="_blank"
+                rel="noreferrer"
+                className="inline-flex items-center gap-2 rounded-full border border-white/10 px-5 py-3 text-sm text-[rgb(var(--fg))]"
+              >
+                {project.reportLabel ?? "View Technical Report"}
+                <ExternalLink className="h-4 w-4" />
+              </a>
+            ) : null}
             <Link href="/#contact" className="inline-flex items-center gap-2 rounded-full border border-white/10 px-5 py-3 text-sm text-[rgb(var(--fg))]">
               Contact Me
             </Link>
@@ -369,6 +380,17 @@ export function ProjectDetail({ project }: { project: ProjectCopy }) {
                   <Link href="/projects" className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white">
                     Back to Projects
                   </Link>
+                  {project.reportHref ? (
+                    <a
+                      href={project.reportHref}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="inline-flex items-center gap-2 rounded-full border border-white/15 px-5 py-3 text-sm font-semibold text-white"
+                    >
+                      {project.reportLabel ?? "View Technical Report"}
+                      <ExternalLink className="h-4 w-4" />
+                    </a>
+                  ) : null}
                 </>
               ) : project.reportHref ? (
                 <a
