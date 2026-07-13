@@ -383,6 +383,13 @@ export const portfolioCopy: PortfolioCopy = {
           height: 480,
         },
         {
+          src: "/images/mae148-finished-robot.jpg",
+          alt: "Finished MAE 148 autonomous trash collection robot with camera, arm, and electronics integrated on the vehicle",
+          caption: "Finished vehicle package with the OAK-D Lite camera, onboard electronics, and SO101 arm integrated onto the mobile base.",
+          width: 918,
+          height: 1056,
+        },
+        {
           src: "/images/mae148-arm-cad.png",
           alt: "Custom SO101 arm CAD used in the MAE 148 trash collection robot",
           caption: "Custom arm package used to fit the manipulator, sensor mast, and bin geometry on the vehicle.",
