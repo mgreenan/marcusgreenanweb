@@ -58,6 +58,40 @@ function TechnicalFigure({
   );
 }
 
+function ProjectMediaItem({ item }: { item: ProjectMedia }) {
+  if (item.type === "video") {
+    return (
+      <figure className="rounded-[1.4rem] border border-white/10 bg-white/[0.02] p-4 md:col-span-2 xl:col-span-2">
+        <video
+          className="aspect-video w-full rounded-xl border border-white/10 bg-black object-cover"
+          controls
+          playsInline
+          preload="metadata"
+          poster={item.poster}
+          aria-label={item.alt}
+        >
+          <source src={item.src} type="video/mp4" />
+          Your browser does not support embedded video playback.
+        </video>
+        <figcaption className="mt-3 text-sm leading-6 text-zinc-400">{item.caption}</figcaption>
+      </figure>
+    );
+  }
+
+  return (
+    <PhotoWithCaption
+      src={item.src}
+      alt={item.alt}
+      caption={item.caption}
+      width={item.width}
+      height={item.height}
+      sizes="(min-width: 1280px) 28vw, (min-width: 768px) 42vw, 100vw"
+      className="rounded-[1.4rem] border border-white/10 bg-white/[0.02] p-4"
+      imageClassName={`rounded-xl border border-white/10 bg-white ${item.imageClassName ?? ""}`}
+    />
+  );
+}
+
 function MetricGrid({ metrics }: { metrics: ProjectCaseStudy["snapshot"] }) {
   return (
     <section id="engineering-case-study" className="mt-6 rounded-[1.75rem] border border-white/10 bg-white/[0.03] p-6 md:p-8">
@@ -456,17 +490,7 @@ export function ProjectDetail({ project }: { project: ProjectCopy }) {
               <div className="text-xs uppercase tracking-[0.28em] text-[rgb(var(--accent))]">Project Media</div>
               <div className="mt-4 grid gap-4 md:grid-cols-2 xl:grid-cols-3">
                 {project.media.map((item) => (
-                  <PhotoWithCaption
-                    key={item.src}
-                    src={item.src}
-                    alt={item.alt}
-                    caption={item.caption}
-                    width={item.width}
-                    height={item.height}
-                    sizes="(min-width: 1280px) 28vw, (min-width: 768px) 42vw, 100vw"
-                    className="rounded-[1.4rem] border border-white/10 bg-white/[0.02] p-4"
-                    imageClassName={`rounded-xl border border-white/10 bg-white ${item.imageClassName ?? ""}`}
-                  />
+                  <ProjectMediaItem key={item.src} item={item} />
                 ))}
               </div>
             </section>

@@ -11,11 +11,13 @@ export type ProjectDetailSection = {
 };
 
 export type ProjectMedia = {
+  type?: "image" | "video";
   src: string;
   alt: string;
   caption: string;
   width: number;
   height: number;
+  poster?: string;
   imageClassName?: string;
 };
 
@@ -372,6 +374,14 @@ export const portfolioCopy: PortfolioCopy = {
         },
       ],
       media: [
+        {
+          type: "video",
+          src: "/videos/mae148-robot-demo.mp4",
+          alt: "MAE 148 autonomous trash collection robot hardware test video",
+          caption: "Hardware test footage from the MAE 148 autonomous trash collection robot, showing the integrated mobile base, sensor stack, and arm package.",
+          width: 854,
+          height: 480,
+        },
         {
           src: "/images/mae148-arm-cad.png",
           alt: "Custom SO101 arm CAD used in the MAE 148 trash collection robot",

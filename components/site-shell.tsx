@@ -366,7 +366,7 @@ function FeaturedProject({ project }: { project: ProjectCopy }) {
             imageClassName="rounded-[1.15rem] border border-white/10 bg-white"
           />
           <div className="grid gap-4 sm:grid-cols-2">
-            {project.media?.slice(1).map((item) => (
+            {project.media?.filter((item) => item.type !== "video").slice(1).map((item) => (
               <PhotoWithCaption
                 key={item.src}
                 src={item.src}
