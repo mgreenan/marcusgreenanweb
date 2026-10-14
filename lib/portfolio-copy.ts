@@ -600,7 +600,7 @@ export const portfolioCopy: PortfolioCopy = {
         { label: "Modeled Mass", value: "0.471 kg" },
       ],
       overview:
-        "As Structures Lead, I worked on the nose-cone geometry, shoulder/body fit, recovery attachment and structural integration. Our team manufactured and ground-tested Daedalus, but never launched it. The 4,086-ft apogee is a historical simulation prediction; the 275 N eyelet comparison is a later engineering analysis, not a flight test.",
+        "As Structures Lead, I worked on the nose-cone geometry, shoulder/body fit, recovery attachment and structural integration. Our team manufactured and ground-tested Daedalus, but never launched it. The 4,086-ft apogee is a simulation prediction; the 275 N eyelet comparison evaluates a conditional recovery case, not a measured deployment.",
       engineeringChallenges: [
         "The rocket had to approach a simulated 4,000-foot apogee while staying stable, manufacturable, and recoverable.",
         "Structural changes affected total mass, center of gravity, center of pressure, drag, assembly behavior, and recovery packaging.",
@@ -644,7 +644,7 @@ export const portfolioCopy: PortfolioCopy = {
           { label: "Validation status", value: "Prototype comparison only" },
         ],
         verification: {
-          lead: "For a later engineering comparison, I modeled an original-style rounded eyelet and a wider concept in matched SolidWorks studies. The original hole and root dimensions were unavailable and are explicit assumptions. Daedalus hardware was manufactured and ground-tested, but never launched.",
+          lead: "I compared an original-style rounded eyelet with a wider concept in matched SolidWorks studies to evaluate the recovery load path. The original hole and root dimensions were unavailable, so those dimensions are stated assumptions. Daedalus hardware was manufactured and ground-tested, but never launched.",
           geometry: [
             {
               src: "/projects/rpl-daedalus/cad-original-eyelet.png",
@@ -870,7 +870,7 @@ export const portfolioCopy: PortfolioCopy = {
           title: "Preliminary Structural Simulation Review",
           paragraphs: [
             "The archived structural image was a preliminary design check rather than formal qualification. Its geometry, material, fixture, and result file are not sufficiently documented for a matched numerical comparison with the new eyelet studies.",
-            "The later rounded-eyelet comparison uses an explicit, conditional 275 N screen derived from a hypothetical parachute-opening scenario. It is a separate study, not a measurement from the rocket.",
+            "The rounded-eyelet comparison uses an explicit, conditional 275 N screen derived from a hypothetical parachute-opening scenario. This modeled load is not a measurement from the rocket.",
           ],
           loadCase: "Archived pressure plot: historical context only; the 275 N eyelet studies use different geometry and boundary conditions",
           figures: [
