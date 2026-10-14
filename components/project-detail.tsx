@@ -145,6 +145,36 @@ function RocketCaseStudy({ caseStudy, project }: { caseStudy: ProjectCaseStudy; 
     <>
       <MetricGrid metrics={caseStudy.snapshot} />
 
+      {caseStudy.verification ? (
+        <CaseStudySection eyebrow="Native CAD + solved FEA" title="Recovery attachment: original versus wider concept">
+          <p className="max-w-4xl text-sm leading-8 text-[rgb(var(--muted))] md:text-base">{caseStudy.verification.lead}</p>
+          <div className="mt-6 grid gap-5 md:grid-cols-2">
+            {caseStudy.verification.geometry.map((figure) => <TechnicalFigure key={figure.src} media={figure} />)}
+          </div>
+          <div className="mt-7 grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-center">
+            <TechnicalFigure media={caseStudy.verification.freeBody} />
+            <div className="space-y-4 text-sm leading-7 text-[rgb(var(--muted))] md:text-base">
+              <h3 className="font-[family-name:var(--font-display)] text-xl text-[rgb(var(--fg))]">Load path and first-principles checks</h3>
+              <p>The assumed 7.5 mm hole carries a distributed +Y bearing load; the fixed root supplies the opposing reaction. The 275 N case is a conditional structural screen, not a measured deployment load.</p>
+              <div className="rounded-xl border border-white/10 bg-black/20 p-4 font-mono text-sm leading-8 text-[rgb(var(--fg))]">
+                <div>A = πD²/4 = 0.2919 m²</div>
+                <div>V ≈ gt = 14.715 m/s (t = 1.5 s)</div>
+                <div>F<sub>open</sub> = ½ρV²C<sub>D</sub>AK<sub>o</sub> = 135.5 N</div>
+                <div>F<sub>screen</sub> = K<sub>s</sub>F<sub>open</sub> = 271 N → 275 N</div>
+              </div>
+              <p>D = 0.6096 m; assumed ρ = 1.225 kg/m³, C<sub>D</sub> = 1.75, opening multiplier K<sub>o</sub> = 2, and separate structural multiplier K<sub>s</sub> = 2. For 1.0 and 2.0 s hypothetical delays, the corresponding screens are 120.4 and 481.7 N.</p>
+              <p>The reference radial nose wall is (1.400 − 1.300)/2 = 0.050 in. Its reference body and shoulder diameters imply zero nominal clearance. I propose finishing the shoulder near the measured bore +0.001 in interference, then accepting it by 15–20 N extraction and ≥35 N ejection tests.</p>
+            </div>
+          </div>
+          <h3 className="mt-8 font-[family-name:var(--font-display)] text-xl text-[rgb(var(--fg))]">Matched SolidWorks bearing studies</h3>
+          <div className="mt-4 grid gap-5 md:grid-cols-2">
+            {caseStudy.verification.plots.map((figure) => <TechnicalFigure key={figure.src} media={figure} />)}
+          </div>
+          <p className="mt-5 max-w-5xl text-sm leading-8 text-[rgb(var(--fg))] md:text-base">{caseStudy.verification.conclusion}</p>
+          <p className="mt-3 max-w-5xl text-sm leading-7 text-[rgb(var(--muted))]">The earlier 174.59 N series refined each design from 1.20 to 0.65 mm; the 275 N final studies used the 0.65 mm target. Peak stress was not perfectly monotonic with mesh, so the reduction is a screening trend. The added width and top ligament use more material. Real pin contact, root-to-nose attachment, off-axis loading, printed PLA strength, and deployment dynamics remain unvalidated.</p>
+        </CaseStudySection>
+      ) : null}
+
       <CaseStudySection eyebrow="Project Overview" title="Compact rocket design as an integrated system">
         <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-start">
           <div className="space-y-4 text-sm leading-8 text-[rgb(var(--muted))] md:text-base">
@@ -159,8 +189,7 @@ function RocketCaseStudy({ caseStudy, project }: { caseStudy: ProjectCaseStudy; 
               side: structural CAD, component interfaces, manufacturing considerations, tolerance checks, and early simulation.
             </p>
             <p>
-              I also communicated closely with teammates working on avionics and propulsion so their hardware could fit inside the
-              vehicle and remain accessible during assembly.
+              I coordinated structural interfaces with teammates responsible for avionics and propulsion. The avionics design and packaging were their work.
             </p>
           </div>
           {caseStudy.overviewFigure ? <TechnicalFigure media={caseStudy.overviewFigure} priority /> : null}
@@ -175,6 +204,9 @@ function RocketCaseStudy({ caseStudy, project }: { caseStudy: ProjectCaseStudy; 
 
       {caseStudy.noseCone ? (
         <CaseStudySection eyebrow="Nose-Cone Design" title={caseStudy.noseCone.title}>
+          <div className="mb-6">
+            <TechnicalFigure media={{ src: "/projects/rpl-daedalus/nose-section.png", alt: "Curved Von Kármán nose reference section with shoulder and body interface dimensions", caption: "October 2026 analytic Von Kármán reference section. The 1.400-in shoulder and body bore imply zero nominal clearance; the +0.001-in interference is a proposed fit revision to verify on hardware.", width: 1200, height: 620 }} />
+          </div>
           <div className="grid gap-6 lg:grid-cols-[1fr_0.85fr]">
             <div className="space-y-4 text-sm leading-8 text-[rgb(var(--muted))] md:text-base">
               {caseStudy.noseCone.paragraphs.map((paragraph) => (
@@ -337,6 +369,11 @@ function RocketCaseStudy({ caseStudy, project }: { caseStudy: ProjectCaseStudy; 
                 <ExternalLink className="h-4 w-4" />
               </a>
             ) : null}
+            {project.downloads?.map((file) => (
+              <a key={file.href} href={file.href} download className="inline-flex items-center gap-2 rounded-full border border-white/10 px-5 py-3 text-sm text-[rgb(var(--fg))]">
+                <Download className="h-4 w-4" />{file.label}
+              </a>
+            ))}
             <Link href="/#contact" className="inline-flex items-center gap-2 rounded-full border border-white/10 px-5 py-3 text-sm text-[rgb(var(--fg))]">
               Contact Me
             </Link>
@@ -382,20 +419,22 @@ export function ProjectDetail({ project }: { project: ProjectCopy }) {
       </div>
 
       <section className="section-shell relative overflow-hidden px-6 py-10 md:px-10 md:py-14">
-        <div className={`absolute inset-0 bg-gradient-to-br ${project.hero}`} />
+        <div className={`absolute inset-0 bg-gradient-to-br ${project.hero}`} style={project.slug === "rocket-propulsion-lab-daedalus" ? { background: "linear-gradient(135deg, #071725 0%, #14283b 58%, #4b241c 100%)" } : undefined} />
         <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(255,255,255,0.14),transparent_28%)]" />
-        <Image
-          src={project.image}
-          alt={project.imageAlt}
-          fill
-          sizes="100vw"
-          className={`object-cover opacity-35 mix-blend-screen ${project.imageClassName ?? ""}`}
-        />
+        {project.slug !== "rocket-propulsion-lab-daedalus" ? (
+          <Image
+            src={project.image}
+            alt={project.imageAlt}
+            fill
+            sizes="100vw"
+            className={`object-cover opacity-35 mix-blend-screen ${project.imageClassName ?? ""}`}
+          />
+        ) : null}
         <div className="relative grid gap-8 lg:grid-cols-[1.08fr_0.92fr]">
           <div>
             <div className="eyebrow border-white/15 bg-black/10 text-white/80">Project Detail</div>
             <h1 className="font-[family-name:var(--font-display)] text-4xl leading-tight text-white md:text-6xl">{project.title}</h1>
-            <p className="mt-4 max-w-3xl text-base leading-8 text-white/84 md:text-lg">{project.subtitle}</p>
+            <p className="mt-4 max-w-3xl text-base leading-8 text-white/84 md:text-lg" style={project.slug === "rocket-propulsion-lab-daedalus" ? { color: "#d6e2ea" } : undefined}>{project.subtitle}</p>
             <div className="mt-6 flex flex-wrap gap-4 text-sm text-white/80">
               <span>{project.organization}</span>
               <span>{project.role}</span>
@@ -425,6 +464,11 @@ export function ProjectDetail({ project }: { project: ProjectCopy }) {
                       <ExternalLink className="h-4 w-4" />
                     </a>
                   ) : null}
+                  {project.downloads?.map((file, index) => (
+                    <a key={file.href} href={file.href} download={!file.label.startsWith("View")} target={file.label.startsWith("View") ? "_blank" : undefined} rel={file.label.startsWith("View") ? "noreferrer" : undefined} className={`inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold transition hover:opacity-80 ${project.slug === "rocket-propulsion-lab-daedalus" && index === 0 ? "bg-white text-slate-950" : "border border-white/40 text-white"}`}>
+                      <Download className="h-4 w-4" />{file.label}
+                    </a>
+                  ))}
                 </>
               ) : project.reportHref ? (
                 <a

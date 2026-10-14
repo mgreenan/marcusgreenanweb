@@ -24,6 +24,13 @@ export type ProjectMedia = {
 export type ProjectCaseStudy = {
   anchorLabel: string;
   snapshot: { label: string; value: string; note?: string }[];
+  verification?: {
+    lead: string;
+    geometry: ProjectMedia[];
+    freeBody: ProjectMedia;
+    plots: ProjectMedia[];
+    conclusion: string;
+  };
   overviewFigure?: ProjectMedia;
   responsibilities?: { title: string; body: string }[];
   noseCone?: {
@@ -98,6 +105,7 @@ export type ProjectCopy = {
   caseStudy?: ProjectCaseStudy;
   reportHref?: string;
   reportLabel?: string;
+  downloads?: { label: string; href: string }[];
   featured?: boolean;
   metaTitle?: string;
   metaDescription?: string;
@@ -581,7 +589,7 @@ export const portfolioCopy: PortfolioCopy = {
       organization: "UCSD Rocket Propulsion Lab",
       role: "Structures Lead",
       period: "10/2024 - 6/2025",
-      hero: "from-slate-950 via-slate-800 to-orange-700",
+      hero: "from-slate-950 via-slate-900 to-orange-950",
       image: "/rocket-diagram.svg",
       imageAlt: "Rocket technical diagram representing the Project Daedalus case study",
       iconKey: "rocket",
@@ -592,14 +600,14 @@ export const portfolioCopy: PortfolioCopy = {
         { label: "Modeled Mass", value: "0.471 kg" },
       ],
       overview:
-        "I led structural design work for Project Daedalus, including CAD development, component interfaces, manufacturing constraints, tolerance checks, and early simulation. I also worked with the avionics and propulsion teams to keep the rocket mechanically integrated as the design changed.",
+        "As Structures Lead, I worked on the nose-cone geometry, shoulder/body fit, recovery attachment and structural integration. Our team manufactured and ground-tested Daedalus, but never launched it. The 4,086-ft apogee is a historical simulation prediction; the 275 N eyelet comparison is a separate October 2026 reconstruction.",
       engineeringChallenges: [
         "The rocket had to approach a simulated 4,000-foot apogee while staying stable, manufacturable, and recoverable.",
         "Structural changes affected total mass, center of gravity, center of pressure, drag, assembly behavior, and recovery packaging.",
         "The nose-cone interface needed enough retention for handling and ascent without preventing deployment near modeled apogee.",
       ],
       designApproach: [
-        "I developed structural CAD around the body tube, fin assembly, nose cone, avionics bay, motor region, and recovery hardware interfaces.",
+        "I developed the nose-cone and structural interfaces, coordinated mechanical fit, and supported manufacturing; the avionics design belonged to teammates.",
         "I used OpenRocket as a design guide to compare geometry, component placement, mass distribution, and predicted stability before fabrication decisions.",
         "I checked manufacturing limits, clearances, friction-fit behavior, and printed-part geometry before the team committed material and time.",
       ],
@@ -618,33 +626,73 @@ export const portfolioCopy: PortfolioCopy = {
       metaTitle: "Rocket Propulsion Lab – Project Daedalus | Marcus Greenan",
       metaDescription:
         "Structural design, OpenRocket simulation, preliminary FEA, manufacturing, and subsystem-integration work for a UC San Diego student rocket targeting a simulated 4,000-foot apogee.",
-      reportHref: "/documents/rpl-daedalus-technical-report.pdf",
-      reportLabel: "View Technical Report",
+      downloads: [
+        { label: "View Technical Portfolio — 3-slide PDF", href: "/documents/daedalus-spacex-portfolio.pdf" },
+        { label: "Download Full Engineering Case Study — PDF", href: "/documents/daedalus-engineering-case-study.pdf" },
+      ],
       caseStudy: {
         anchorLabel: "Explore the Engineering",
         snapshot: [
           { label: "Vehicle length", value: "25 in" },
           { label: "Max diameter", value: "1.5 in" },
           { label: "Modeled mass", value: "1.038 lb / 0.471 kg" },
-          { label: "Simulated stability", value: "1.23 calibers" },
-          { label: "Simulated apogee", value: "Approx. 4,086 ft / 1,245 m" },
-          { label: "Simulated peak velocity", value: "791 ft/s / 241 m/s" },
-          { label: "Simulated peak acceleration", value: "675 ft/s² / 205.74 m/s²" },
-          { label: "Selected motor", value: "AeroTech G80T" },
-          { label: "Simulated time to apogee", value: "Approx. 14 s" },
+          { label: "Historical stability prediction", value: "1.23 calibers" },
+          { label: "Historical apogee prediction", value: "4,086 ft; no flight" },
+          { label: "Conditional recovery screen", value: "275 N; assumed" },
+          { label: "Peak stress reduction", value: "23.5% at 0.65 mm mesh" },
+          { label: "Displacement reduction", value: "20.3% at 0.65 mm mesh" },
+          { label: "Validation status", value: "Prototype comparison only" },
         ],
+        verification: {
+          lead: "During the October 2026 reconstruction, I modeled an original-style rounded eyelet and a wider concept in matched SolidWorks studies. The original hole and root dimensions were unavailable and are explicit assumptions. Historical Daedalus hardware was manufactured and ground-tested, but never launched.",
+          geometry: [
+            {
+              src: "/projects/rpl-daedalus/cad-original-eyelet.png",
+              alt: "Native SolidWorks reconstruction of the rounded original recovery eyelet",
+              caption: "Original-style rounded reconstruction: 17.78 × 17.78 × 12.7 mm envelope; 7.5 mm hole assumed.",
+              width: 1280, height: 720,
+            },
+            {
+              src: "/projects/rpl-daedalus/cad-improved-eyelet.png",
+              alt: "Native SolidWorks wider rounded recovery-eyelet concept",
+              caption: "Improved rounded concept: 20 × 22 × 12.7 mm; same assumed hole and thickness.",
+              width: 1280, height: 720,
+            },
+          ],
+          freeBody: {
+            src: "/projects/rpl-daedalus/recovery-free-body.png",
+            alt: "Recovery eyelet free-body diagram with 275 newton hole load and balancing fixed-root reaction",
+            caption: "Conditional 275 N screen from an assumed 1.5 s deployment delay, parachute drag and two separate multipliers. Real pin contact and nose attachment were not modeled.",
+            width: 1000, height: 640,
+          },
+          plots: [
+            {
+              src: "/projects/rpl-daedalus/fea-original-bearing.png",
+              alt: "Actual SolidWorks von Mises stress contour for the original rounded eyelet",
+              caption: "Actual 275 N, 0.65 mm ABS study: 11.591 MPa peak. Common stress legend, hole bearing and fixture shown.",
+              width: 1175, height: 645,
+            },
+            {
+              src: "/projects/rpl-daedalus/fea-improved-bearing.png",
+              alt: "Actual SolidWorks von Mises stress contour for the improved rounded eyelet",
+              caption: "Actual 275 N, 0.65 mm ABS study: 8.869 MPa peak. Same orientation and 0–11.591 MPa display scale.",
+              width: 1175, height: 645,
+            },
+          ],
+          conclusion: "At the matched 275 N, 0.65 mm ABS mesh target, peak von Mises stress fell from 11.591 to 8.869 MPa (23.5%), and maximum displacement fell from 0.04138 to 0.03299 mm (20.3%). Reactions balanced 275 N within 0.002 N. This supports prototyping the wider eyelet, not release as a flight-ready anchor.",
+        },
         overviewFigure: {
-          src: "/projects/rpl-daedalus/openrocket-vehicle-model.png",
-          alt: "OpenRocket model of the Project Daedalus student rocket showing vehicle geometry and component placement",
-          caption: "OpenRocket model used to evaluate vehicle geometry, component placement, mass distribution, and predicted stability.",
-          width: 1408,
-          height: 334,
+          src: "/projects/rpl-daedalus/cad-rocket-envelope.png",
+          alt: "Native SolidWorks reconstructed Daedalus full rocket assembly",
+          caption: "October 2026 native SolidWorks full-rocket envelope reconstruction. Reference dimensions are not verified as-built measurements.",
+          width: 444,
+          height: 1080,
           imageClassName: "object-contain bg-white",
         },
         responsibilities: [
           {
             title: "Structural CAD",
-            body: "I developed structural CAD for the rocket and reviewed how the nose cone, body tube, fin assembly, avionics bay, motor region, and recovery hardware fit together.",
+            body: "I developed nose-cone and recovery-interface CAD and reviewed the body, fin and motor-region structural interfaces with the team.",
           },
           {
             title: "Nose-Cone Design",
@@ -740,10 +788,10 @@ export const portfolioCopy: PortfolioCopy = {
             "The propulsion, recovery, and avionics systems are included to show the interfaces and constraints that affected my structural work. They were collaborative team systems rather than solely my individual designs.",
         },
         avionics: {
-          title: "Designing Around the Avionics Package",
+          title: "Coordinating the Avionics Interface",
           paragraphs: [
             "The avionics package affected the mechanical design even though my primary role was structural. The Arduino, pressure sensor, inertial sensor, SD-card module, battery, wiring, and mounting hardware all had to fit within the available internal diameter.",
-            "Mechanical design decisions had to preserve enough room for wiring, sensor placement, assembly, and removal. I regularly communicated with the electrical team to understand what space they needed and where mechanical access mattered.",
+            "I coordinated available structural space and access requirements with the electrical team. I did not design the avionics bay or package its electronics.",
           ],
           figure: {
             src: "/projects/rpl-daedalus/avionics-layout.png",
@@ -776,7 +824,7 @@ export const portfolioCopy: PortfolioCopy = {
           title: "Predicting Vehicle Performance in OpenRocket",
           paragraphs: [
             "OpenRocket allowed the team to see how structural changes affected the complete flight model. A change that improved one component could also shift the center of gravity, change stability, add drag, or reduce predicted altitude.",
-            "I used these results as design guidance rather than treating the simulation as a substitute for physical validation. The model helped identify weak concepts and compare alternatives before fabrication.",
+            "The plots and 4,086-foot apogee are historical CDR predictions, not flight data. The original .ork file was unavailable for this retrospective, so I did not independently rerun or tune that result.",
           ],
           highlights: [
             { label: "Simulated apogee", value: "Approx. 4,086 ft" },
@@ -821,10 +869,10 @@ export const portfolioCopy: PortfolioCopy = {
         structural: {
           title: "Preliminary Structural Simulation Review",
           paragraphs: [
-            "The structural simulations were used as preliminary design checks rather than formal qualification. They provided a way to inspect where deformation, strain, and stress concentrated under the modeled load before the team committed to fabrication.",
-            "The documented loading case applied approximately 39.25 lb to the modeled structure. The visual results helped the team review the body and fin region for concerning behavior and identify geometry that deserved closer attention.",
+            "The archived structural image was a preliminary design check rather than formal qualification. Its geometry, material, fixture, and result file are not sufficiently documented for a matched numerical comparison with the new eyelet studies.",
+            "The October 2026 rounded-eyelet comparison instead uses an explicit, conditional 275 N screen derived from a hypothetical parachute-opening scenario. It is a separate study, not a measurement from the historical rocket.",
           ],
-          loadCase: "Documented modeled load: approximately 39.25 lb",
+          loadCase: "Archived pressure plot: historical context only; the 275 N eyelet studies use different geometry and boundary conditions",
           figures: [
             {
               src: "/projects/rpl-daedalus/pressure-stress.png",
@@ -843,7 +891,7 @@ export const portfolioCopy: PortfolioCopy = {
           },
           {
             title: "Concept Development",
-            body: "Created and reviewed early CAD for the nose cone, body structure, fins, avionics bay, and subsystem interfaces.",
+            body: "Created and reviewed nose-cone and structural-interface CAD while coordinating subsystem fit with teammates.",
           },
           {
             title: "Simulation",
