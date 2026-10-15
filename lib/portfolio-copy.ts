@@ -628,7 +628,7 @@ export const portfolioCopy: PortfolioCopy = {
         "Structural design, OpenRocket simulation, preliminary FEA, manufacturing, and subsystem-integration work for a UC San Diego student rocket targeting a simulated 4,000-foot apogee.",
       downloads: [
         { label: "View Technical Portfolio — 3-slide PDF", href: "/documents/daedalus-spacex-portfolio.pdf" },
-        { label: "Download Full Engineering Case Study — PDF", href: "/documents/daedalus-engineering-case-study.pdf" },
+        { label: "Download Full Technical Report — PDF", href: "/documents/daedalus-engineering-case-study.pdf" },
       ],
       caseStudy: {
         anchorLabel: "Explore the Engineering",
